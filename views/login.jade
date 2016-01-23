@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	.container-fluid.login-container
+		h1 Login
+		h2 #{message}
+		form.login(action='/login' method='post')
+			input(type='text' id='email', name='email', placeholder='E-mail')
+			input(type='password' id='password' name='password', placeholder='Password')
+			br
+			button.login-button(type='submit') Login
+
+	script(type='text/javascript').
+		userLoggedOut();

@@ -1,0 +1,120 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+nav {
+	background-color: black;
+	color: white;
+}
+
+textarea {
+	resize: none;
+}
+
+.navbar-brand {
+	color: white;
+}
+
+#userImage {
+	height: 20px;
+	width: 20px;
+	border-radius: 100%;
+	background-color: white;
+	display: inline-block;
+}
+
+#userName {
+	vertical-align: top;
+	margin-left: 5px;
+}
+
+.nav>li.user-nav {
+	display: none;
+}
+
+.nav>li.user-nav.loggedIn {
+	display: block;
+}
+
+.navbar-nav>li.user-nav>a {
+	padding-bottom: 10px;
+}
+
+.index-container, .login-container, .signup-container {
+	text-align: center;
+}
+
+.index-container button {
+	padding: 15px;
+	color: black;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.signup input, .login input {
+	margin-bottom: 10px;
+	padding: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.login-button {
+	padding: 10px;
+}
+
+#allUsers {
+	width: 100%;
+	text-align: center;
+}
+
+#allUsers th, #allUsers tr, #allUsers td {
+	padding: 10px;
+	text-align: left;
+}
+
+
+.table-hover>tbody>tr.no-hover, .table-hover>tbody>tr.no-hover:hover {
+	background-color: #f9f9f9;
+}
+
+.profile {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 20px 0px;
+}
+
+.password {
+	padding: 20px 0px;
+}
+
+.profileImage {
+	width: 100%;
+	max-width: 250px;
+	max-height: 250px;
+}
+
+.edit-container input {
+	padding: 5px;
+}
+
+.adminOptions .row {
+	padding-top: 10px;
+}
+
+.adminOptions a {
+	color: black;
+}
+
+#deleteUserButton, #toggleAdminButton {
+	display: none;
+}
+
+#userBehaviours {
+	display: none;
+}

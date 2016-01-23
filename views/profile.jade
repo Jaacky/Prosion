@@ -1,0 +1,93 @@
+extends layout
+
+block content
+	.container-fluid.profile-container
+		.row
+			.col-md-12
+				h1
+					span#name
+					's Profile 
+					a#editProfile(href='/profile/edit') Edit
+				h2 #{message}
+		.row
+			.col-md-3
+				.image
+					<img class="profileImage" src="">
+			.col-md-9
+				.row
+					.col-md-3
+						h4 E-mail:
+					.col-md-9
+						h4#email 
+				.row
+					.col-md-3
+						h4 Display Name:
+					.col-md-9
+						h4#displayName
+				.row
+					.col-md-3
+						h4 Description:
+					.col-md-9
+						h4#description
+		.row.adminOptions
+			.col-md-12
+				.row
+					form.deleteUser(name='deleteUser' id='deleteUser' action='/profile/delete' method='post')
+						.col-md-12
+							input(type='hidden' class='_id' name='_id')
+							button#deleteUserButton(onclick='submitForm("deleteUser")') Delete User
+				.row
+					form.toggleAdmin(name='toggleAdmin' id='toggleAdmin' action='/profile/toggleAdmin' method='post')
+						.col-md-12
+							input(type='hidden' class='_id' name='_id')
+							button#toggleAdminButton(onclick='submitForm("toggleAdmin"') Make Admin
+
+	script(type='text/javascript').
+		currentUser = !{user};
+		otherUser = !{otherUser};
+		userLoggedIn(currentUser);
+		if (otherUser) {
+
+			if (currentUser.admin) {
+				if (!otherUser.superAdmin) {
+					if (otherUser.admin) {
+						$('#toggleAdminButton').html('Remove Admin Privileges');
+					}
+					$('#deleteUserButton').css('display', 'block');
+					if (currentUser.superAdmin) {
+						$('#toggleAdminButton').css('display', 'block');
+					}
+				}
+			}
+			$('._id').val(otherUser._id)
+
+			$('#editProfile').css('display', 'none');
+			var name;
+			if (otherUser.name) {
+				name = otherUser.name;
+			}
+			else {
+				name = otherUser.email;
+			}
+
+			$('#name').html(name);
+			$('#email').html(otherUser.email);
+			$('#displayName').html(name);
+			$('#description').html(otherUser.description);
+			$('.profileImage').attr('src', "../" + otherUser.image);
+
+		} else { // Needs an active edit button to proc to edit
+			$('#editProfile').css('display', 'inline-block');
+			var name;
+			if (currentUser.name) {
+				name = currentUser.name;
+			}
+			else {
+				name = currentUser.email;
+			}
+			$('#name').html(name);
+			$('#email').html(currentUser.email);
+			$('#displayName').html(name);
+			$('#description').html(currentUser.description);
+			$('.profileImage').attr('src', "../" + currentUser.image);
+		}

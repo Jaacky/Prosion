@@ -1,0 +1,73 @@
+extends layout
+
+block content
+	.container-fluid.edit-container
+		.row
+			.col-md-12
+				h1 Edit Profile
+				h2 #{message}
+		.row.profile
+			form.updateProfile(name='updateProfile' id='updateProfile' action='/profile/edit' method='post' enctype="multipart/form-data")
+				.col-md-3
+					.image
+						//- ../images/uploads/5ed553e4991c2a55a54ac4cf135e1a52.png
+						<img class="profileImage" src="">
+					h4 Change Picture:
+					input(type='file' id='image' name='image' accept="application/x-zip-compressed,image/*")
+				.col-md-9
+					.row
+						.col-md-3
+							h4 E-mail:
+						.col-md-9
+							h4#email 
+					.row
+						.col-md-3
+							h4 Display Name:
+						.col-md-9
+							input(type='text' id='displayName' name='displayName' placeholder='Display Name')
+					.row
+						.col-md-3
+							h4 Description:
+						.col-md-9
+							textarea(type='text' id='description' name='description' placeholder='Description')
+
+					input(type='hidden' class='_id' name='_id')
+					input(type='hidden' id='passwordFlag' name='passwordFlag' value='false')
+				.row
+					.col-md-offset-9.col-md-3
+						button#updateProfile(onclick='submitForm("updateProfile")') Update
+		.row.password
+			form.changePassword(name='changePassword' id='changePassword' action='/profile/edit' method='post')
+				.col-md-offset-3.col-md-6
+					.row
+						.col-md-3
+							h4 Old Password:
+						.col-md-9
+							input(type='password' id='oldPassword' name='oldPassword' placeholder='Old Password')
+					.row
+						.col-md-3
+							h4 New Password:
+						.col-md-9
+							input(type='password' id='newPassword' name='newPassword' placeholder='New Password')
+					.row
+						.col-md-3
+							h4 Confirm New Password:
+						.col-md-9
+							input(type='password' id='confirmPassword' name='confirmPassword' placeholder='Confirm New Password')
+				.col-md-3
+					input(type='hidden' class='_id' name='_id')
+					input(type='hidden' id='passwordFlag' name='passwordFlag' value='true')
+					button#changePassword(onclick='submitForm("changePassword")') Change Password
+		//- !{user}
+
+	script(type='text/javascript').
+		currentUser = !{user};
+		userLoggedIn(currentUser);
+		$('._id').val(currentUser._id)
+		$('#email').html(currentUser.email)
+		$('#displayName').val(currentUser.name);
+		$('#description').val(currentUser.description);
+		$(document).ready(function() {
+			$('.profileImage').attr('src', "../" + currentUser.image);
+			console.log(currentUser.image);
+		});

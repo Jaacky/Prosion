@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	.container-fluid.signup-container
+		h1 Sign Up!
+		h2 #{message}
+		form.signup(action='/signup' method='post')
+			input(type='text' id='email', name='email' placeholder='E-mail')
+			br
+			input(type='password' id='password' name='password' placeholder='Password')
+			br
+			input(type='password' id='confirmPassword' name='confirmPassword' placeholder='Confirm Password')
+			br
+			button.login-button(type='submit') Sign up
