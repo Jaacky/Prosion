@@ -11,7 +11,8 @@ var userSchema = new Schema({
 	description : { type: String, maxlength: 500 },
 	image : { type: String, default: 'images/avatar.png' },
 	superAdmin: { type: Boolean, default: false },
-	admin: { type: Boolean, default: false }
+	admin: { type: Boolean, default: false },
+	graphs : [ { type: Schema.ObjectId, ref: 'Graph' } ]
 });
 
 userSchema.plugin(passportLocalMongoose);
