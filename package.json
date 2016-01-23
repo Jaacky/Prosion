@@ -1,6 +1,6 @@
 {
-  "name": "a4",
-  "version": "0.0.0",
+  "name": "Prosion",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
