@@ -118,3 +118,21 @@ textarea {
 #userBehaviours {
 	display: none;
 }
+
+/*******************
+DASHBOARD
+*******************/
+
+.dashboard-graph {
+	text-align: center;
+	padding: 5px;
+}
+
+.btn-graph {
+	width: 100%;
+}
+
+.btn-graph p {
+	margin: 0;
+	overflow: hidden;
+}

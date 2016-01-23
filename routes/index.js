@@ -131,7 +131,8 @@ router.post('/signup', function(req, res) {
 router.get('/landing', function(req, res) {
 	if (req.user) { 
 		User.find({}, function(err, users) {
-			res.render('landing', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
+			//res.render('landing', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
+			res.render('dashboard', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
 		});
 	}
 	else {
