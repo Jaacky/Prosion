@@ -72,3 +72,50 @@ function appendGraphButtons(container, graphs) {
 function convertDateToDayNumber(date) {
 	return moment(date).format('DDD');
 }
+
+function Graph(container, dataset) {
+	var width = width | 500,
+		height = height | 300,
+		padding = padding |30,
+		xScale = d3.scale.linear()
+				.domain([0, d3.max(dataset, function(d) { return convertDateToDayNumber(d[0]); })])
+				.range([padding, width - padding * 2]),
+		yScale = d3.scale.linear()
+				.domain([0, d3.max(dataset, function(d) { return d[1]; })])
+				.range([height - padding, padding]),
+		xAxis = d3.svg.axis()
+				.scale(xScale)
+				.orient('bottom'),
+		yAxis = d3.svg.axis()
+				.scale(yScale)
+				.orient('left');
+
+	var svg = d3.select(container)
+				.append('svg')
+				.attr('width', width)
+				.attr('height', height);
+
+	svg.selectAll('circle')
+		.data(dataset)
+		.enter()
+		.append('circle')
+		.attr('cx', function(d) {
+			return xScale(convertDateToDayNumber(d[0]));
+		})
+		.attr('cy', function(d) {
+			return yScale(d[1]);
+		})
+		.attr('r', 3);
+
+	svg.append('g')
+			.attr('class', 'axis')
+			.attr('transform', 'translate(0,' + (height - padding) + ')')
+			.call(xAxis);
+
+	svg.append('g')
+		.attr('class', 'axis')
+		.attr('transform', 'translate(' + padding + ', 0)')
+		.call(yAxis);
+	return 0;
+}
+
