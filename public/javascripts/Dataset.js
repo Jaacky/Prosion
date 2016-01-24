@@ -5,7 +5,7 @@ function Dataset(data) {
 function loop(condition) {
 	dataset = [];
 
-	for (var i=0; i<this.data.length; i++) {
+	for (var i=0; i<this.dataset.length; i++) {
 		var dataDate = moment(data[i][0], 'x');
 		// condition
 		if (condition(dataDate)) {
