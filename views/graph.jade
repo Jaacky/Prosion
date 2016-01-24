@@ -16,8 +16,10 @@ block content
 					button.btn.btn-default(type='submit') Add
 
 
-		#graph-container Hello
+		#graph-container
+
 	script(type='text/javascript').
+		/* Initialzing date picker */
 		var picker = new Pikaday({
 			field: document.getElementById('datepicker'),
 			format: 'ddd MMM D, YYYY',
@@ -27,6 +29,7 @@ block content
 			console.log(this.getMoment().format('Do MMMM YYYY'));
 			}
 		});
+		
 	script(type='text/javascript').
 		var dataset = graph.data;
 		console.log(moment(dataset[0][0]).format('DDD'));
