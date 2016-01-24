@@ -30,6 +30,7 @@ db.once('open', function(callback) {
 }); 
 var routes = require('./routes/index');
 var profile = require('./routes/profile');
+var graph = require('./routes/graph');
 
 var app = express();
 
@@ -60,6 +61,7 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/profile', profile);
+app.use('/graph', graph);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
