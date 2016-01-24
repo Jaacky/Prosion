@@ -2,11 +2,34 @@ function Dataset(data) {
 	this.data = data;
 }
 
-/*
-* Return dataset of the current week
-*/
-Dataset.prototype.getCurretWeek() {
+function loop(condition) {
+	dataset = [];
 
+	for (var i=0; i<this.data.length; i++) {
+		var dataDate = moment(data[i][0], 'x');
+		// condition
+		if (condition(dataDate)) {
+			dataset.push(data[i]);
+		}
+	}
+
+	return dataset;
+}
+
+/*
+* Return dataset of the current year
+*/
+Dataset.prototype.getCurrentYear() {
+	var currentYear = moment().year();
+	var currentYearCondition = function(d) {
+		if (currentYear == d) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	return loop(currentYearCondition);
 }
 
 /*
@@ -17,16 +40,16 @@ Dataset.prototype.getCurrentMonth() {
 }
 
 /*
-* Return dataset of the current year
+* Return dataset of the current week
 */
-Dataset.prototype.getCurrentYear() {
+Dataset.prototype.getCurretWeek() {
 
 }
 
 /*
-* Return the dataset from num weeks from current date
+* Return the dataset from num years from current date
 */
-Dataset.prototype.backPreviousWeeks(num) {
+Dataset.prototype.backPreviousYears(num) {
 
 }
 
@@ -38,8 +61,8 @@ Dataset.prototype.backPreviousMonths(num) {
 }
 
 /*
-* Return the dataset from num years from current date
+* Return the dataset from num weeks from current date
 */
-Dataset.prototype.backPreviousYears(num) {
+Dataset.prototype.backPreviousWeeks(num) {
 
 }
