@@ -68,3 +68,7 @@ function appendGraphButtons(container, graphs) {
 		$(container).append(formatGraphButton(graphs[i]));
 	}
 }
+
+function convertDateToDayNumber(date) {
+	return moment(date).format('DDD');
+}
