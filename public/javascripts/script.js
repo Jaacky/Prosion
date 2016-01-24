@@ -70,7 +70,7 @@ function appendGraphButtons(container, graphs) {
 }
 
 function convertDateToDayNumber(date) {
-	return moment(date).format('DDD');
+	return moment(date, 'x').format('DDD');
 }
 
 function Graph(container, dataset) {
