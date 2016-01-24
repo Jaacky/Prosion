@@ -2,17 +2,14 @@ function Dataset(data) {
 	this.data = data;
 }
 
-function loop(condition) {
+function loop(condition, data) {
 	dataset = [];
-
-	for (var i=0; i<this.dataset.length; i++) {
+	for (var i=0; i<data.length; i++) {
 		var dataDate = moment(data[i][0], 'x');
-		// condition
 		if (condition(dataDate)) {
 			dataset.push(data[i]);
 		}
 	}
-
 	return dataset;
 }
 
@@ -22,28 +19,34 @@ function loop(condition) {
 Dataset.prototype.getCurrentYear = function() {
 	var currentYear = moment().year();
 	var currentYearCondition = function(d) {
-		if (currentYear == d) {
-			return true;
-		} else {
-			return false;
-		}
+		return currentYear == d.year();
 	};
 
-	return loop(currentYearCondition);
+	return loop(currentYearCondition, this.data);
 }
 
 /*
 * Return dataset of the current month
 */
 Dataset.prototype.getCurrentMonth = function() {
+	var currentMonth = moment().month();
+	var currentMonthCondition = function(d) {
+		return currentMonth == d.month();
+	};
 
+	return loop(currentMonthCondition, this.getCurrentYear());
 }
 
 /*
 * Return dataset of the current week
 */
-Dataset.prototype.getCurretWeek = function() {
+Dataset.prototype.getCurrentWeek = function() {
+	var currentWeek = moment().week();
+	var currentWeekCondition = function(d) {
+		return currentWeek == d.week();
+	}
 
+	return loop(currentWeekCondition, this.getCurrentMonth());
 }
 
 /*
