@@ -10,17 +10,27 @@ block content
 			.col-sm-12
 				h2 New value
 				form(action='/graph/input', method='post')
+					input(type='text', id='datepicker', name='date')
 					input(type='number', id='value', name='value', placeholder='Value')
 					input(type='string', id='id', name='id' value=graphId hidden)
 					button.btn.btn-default(type='submit') Add
 
 
 		#graph-container Hello
-
+	script(type='text/javascript').
+		var picker = new Pikaday({
+			field: document.getElementById('datepicker'),
+			format: 'ddd MMM D, YYYY',
+			defaultDate: moment().toDate(),
+			setDefaultDate: true,
+			onSelect: function() {
+			console.log(this.getMoment().format('Do MMMM YYYY'));
+			}
+		});
 	script(type='text/javascript').
 		var dataset = graph.data;
 		console.log(moment(dataset[0][0]).format('DDD'));
-		
+
 		var svgWidth = 500, svgHeight = 300, padding = 30;
 		var svg = d3.select('#graph-container')
 					.append('svg')
