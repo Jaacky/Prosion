@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var flash = require('connect-flash');
 var User = require('../models/User.js');
+var Graph = require('../models/Graph.js');
 var Analytics = require('../models/Analytics.js');
 var superAdmin = require('../models/first.js');
 var passport = require('passport');
@@ -130,15 +131,63 @@ router.post('/signup', function(req, res) {
 
 router.get('/landing', function(req, res) {
 	if (req.user) { 
-		User.find({}, function(err, users) {
-			//res.render('landing', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
-			res.render('dashboard', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
+		// User.find({}, function(err, users) {
+		// 	//res.render('landing', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
+		// 	res.render('dashboard', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
+		// });
+
+		User.findOne({_id: req.user._id}, function(err, user) {
+			Graph.find({
+				_id : { $in : user.graphs}
+			}, function(err, graphs) {
+				console.log(graphs);
+				console.log(user);
+				res.render('dashboard', { user:JSON.stringify(user), graphs: JSON.stringify(graphs) });
+			});
 		});
 	}
 	else {
 		res.redirect('/');
 	}
 	//res.redirect('/profile');
+});
+
+router.post('/createGraph', function(req, res) {
+	console.log('creating graph!');
+	console.log(req.user);
+	console.log(req.body.graphName);
+
+	User.findOne({_id: req.user._id}, function(err, user) {
+		if (err) {
+			console.log(err);
+			res.redirect('/landing');
+		} else {
+			var newGraph = new Graph({
+				owner: user._id,
+				name: req.body.graphName,
+				data: []
+			});
+			console.log(newGraph);
+			newGraph.save(function(err, graph) {
+				if (err) {
+					console.log(err);
+					res.redirect('/landing');
+				} else {
+					console.log('successfully created new graph');
+					user.graphs.push(graph._id);
+					user.save(function(err) {
+						if (err) {
+							console.log(err);
+							res.redirect('/landing');
+						} else {
+							console.log('successfully updated user');
+							res.redirect('/landing');
+						}
+					})
+				}
+			});
+		}
+	});		
 });
 
 router.get('/analytics', function(req, res) {

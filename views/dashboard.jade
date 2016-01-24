@@ -3,59 +3,33 @@ extends layout
 block content
 	.container-fluid.dashboard-container
 		h1 Dashboard
-		.row.personal-graphs
-			h2 Personal Graphs
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 1
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 2
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 3
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 4
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 5
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 6
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 7
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 8
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 9
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 10
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 11
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 12
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 13
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Graph 14
-			.col-sm-2.dashboard-graph
-				button.btn.btn-default.btn-graph
-					p Super long ass name cuz i wanna be not precise and shit
+		.row#dashboard-menu
+			.col-sm-12
+				button.btn.btn-default#newGraph New Graph
+				form#createGraphForm(action='/createGraph', method='post')
+					input(type='text', id='graphName', name='graphName', placeholder='Graph Name')
+					button.btn.btn-default#createGraph(type='submit') Create
+		.row#personal-graphs
+			.col-sm-12
+				h2 Personal Graphs
 
-		.row.group-graphs
-			h2 Group Graphs
+		.row#group-graphs
+			.col-sm-12
+				h2 Group Graphs
+				div#my_chart
 
 
 	script(type='text/javascript').
 		currentUser = !{user}
-		users = !{users}
-		userLoggedIn(currentUser);
+		graphs = !{graphs}
+		appendGraphButtons('#personal-graphs', graphs);
+
+		$(document).ready(function() {
+			$('#newGraph').on('click', function() {
+				$('#createGraphForm').css('display', 'block');
+			});
+		});
+
+
+
+

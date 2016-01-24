@@ -39,3 +39,32 @@ function userLoggedOut() {
 		$('.user-nav').removeClass('loggedIn');
 	}
 }
+
+/* NOT NEEDED
+function getGraphs(user) {
+	var graphs = [];
+	if (!user.graphs.length == 0) {
+		for (var i=0; i < user.graphs.length; i++) {
+			graphs.push(user.graphs[i]);
+		}
+	}
+	console.log(graphs);
+	return graphs;
+}
+*/
+
+function formatGraphButton(graph) {
+	return '<div class="col-sm-2 dashboard-graph">'
+			+ '<a href="/graph/' + graph._id + '">'
+				+ '<button class="btn btn-default btn-graph">'
+					+ '<p>' + graph.name + '</p>'
+				+ '</button>'
+			+ '</a>';
+			+ '</div>';
+}
+
+function appendGraphButtons(container, graphs) {
+	for (var i=0; i<graphs.length; i++) {
+		$(container).append(formatGraphButton(graphs[i]));
+	}
+}
