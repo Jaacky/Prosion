@@ -17,6 +17,10 @@ textarea {
 	resize: none;
 }
 
+*:focus {
+	outline: none !important;
+}
+
 .navbar-brand {
 	color: white;
 }
