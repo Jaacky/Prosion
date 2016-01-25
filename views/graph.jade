@@ -1,6 +1,7 @@
 extends layout
 
 block content
+	script(src='../javascripts/Dataset.js')
 	script(type='text/javascript').
 		var graph = !{graph}
 		console.log(graph)
@@ -15,8 +16,13 @@ block content
 					input(type='string', id='id', name='id' value=graphId hidden)
 					button.btn.btn-default(type='submit') Add
 
-
-		#graph-container
+		.row
+			.col-md-12.options-group#graph-time-options
+				button.btn.btn-default#graph-year-option Year
+				button.btn.btn-default#graph-month-option.active Month
+				button.btn.btn-default#graph-week-option Week
+			.col-md-12
+				#graph-container
 
 	script(type='text/javascript').
 		/* Initialzing date picker */
@@ -31,4 +37,20 @@ block content
 		});
 
 	script(type='text/javascript').
-		Graph('#graph-container', graph.data);
+		var set = new Dataset(graph.data);
+		var year = set.getCurrentYear(true);
+		console.log(year);
+		//- for (var i=0; i<year.length; i++) {
+		//- 		console.log(year[i][0]);
+		//- 	}
+		//- Graph('#graph-container', graph.data);
+		Graph('#graph-container', set.getCurrentMonth(true));
+
+	script(type='text/javascript').
+		$(document).ready(function() {
+			$('#graph-time-options > .btn').on('click', function() {
+				$('#graph-container').empty();
+				Graph('#graph-container', getDataset(set, $(this).attr('id')))
+			});
+		});
+

@@ -141,6 +141,32 @@ DASHBOARD
 	overflow: hidden;
 }
 
+/******************
+GRAPH
+******************/
+.options-group .btn {
+	opacity: 0.65;
+	padding: 6px 20px;
+}
+
+.options-group .btn.active {
+	opacity: 1;
+}
+
+.options-group>.btn:first-child:not(:last-child) {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.options-group>.btn:not(:first-child):not(:last-child) {
+	border-radius: 0;
+}
+
+.options-group>.btn:last-child:not(:first-child) {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
 .bar {
 	display: inline-block;
 	width: 20px;

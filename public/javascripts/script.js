@@ -69,16 +69,31 @@ function appendGraphButtons(container, graphs) {
 	}
 }
 
+function getDataset(set, option) {
+	if (option == 'graph-year-option') {
+		return set.getCurrentYear(true);
+	} else if (option == 'graph-month-option') {
+		return set.getCurrentMonth(true);
+	} else if (option == 'graph-week-option') {
+		return set.getCurrentWeek(true);
+	} else { // not one of the options
+		return [];
+	}
+}
+
 function convertDateToDayNumber(date) {
-	return moment(date, 'x').format('DDD');
+	console.log(moment(date, 'x').format('DDD'));
+	return parseInt(moment(date, 'x').format('DDD'));
 }
 
 function Graph(container, dataset) {
-	var width = width | 500,
-		height = height | 300,
-		padding = padding |30,
+	var width = 500,
+		height = 300,
+		padding = 30,
 		xScale = d3.scale.linear()
-				.domain([0, d3.max(dataset, function(d) { return convertDateToDayNumber(d[0]); })])
+				.domain([0, d3.max(dataset, function(d) { //return convertDateToDayNumber(d[0]);
+					return d[0];
+				})])
 				.range([padding, width - padding * 2]),
 		yScale = d3.scale.linear()
 				.domain([0, d3.max(dataset, function(d) { return d[1]; })])
@@ -100,12 +115,31 @@ function Graph(container, dataset) {
 		.enter()
 		.append('circle')
 		.attr('cx', function(d) {
-			return xScale(convertDateToDayNumber(d[0]));
+			// return xScale(convertDateToDayNumber(d[0]));
+			return xScale(d[0]);
 		})
 		.attr('cy', function(d) {
 			return yScale(d[1]);
 		})
 		.attr('r', 3);
+
+	svg.selectAll('text')
+		.data(dataset)
+		.enter()
+		.append('text')
+		.text(function(d) {
+			return d[0] + ", " + d[1];
+		})
+		.attr('x', function(d) {
+			// return xScale(convertDateToDayNumber(d[0]));
+			return xScale(d[0]);
+		})
+		.attr('y', function(d) {
+			return yScale(d[1]);
+		})
+		.attr('font-family', 'sans-serif')
+		.attr('font-size', '12px')
+		.attr('fill', 'teal');
 
 	svg.append('g')
 			.attr('class', 'axis')
