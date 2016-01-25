@@ -1,19 +1,17 @@
 extends layout
 
 block content
+	//- Including Dataset class
 	script(src='../javascripts/Dataset.js')
-	script(type='text/javascript').
-		var graph = !{graph}
-		console.log(graph)
 	.container-fluid
 		h1= graphName
 		.row
 			.col-sm-12
 				h2 New value
 				form(action='/graph/input', method='post')
-					input(type='text', id='datepicker', name='date')
-					input(type='number', id='value', name='value', placeholder='Value')
-					input(type='string', id='id', name='id' value=graphId hidden)
+					input(type='text', id='datepicker', name='date' required)
+					input(type='number', id='value', name='value', placeholder='Value' required)
+					input(type='string', id='id', name='id' value=graphId hidden required)
 					button.btn.btn-default(type='submit') Add
 
 		.row
@@ -37,20 +35,19 @@ block content
 		});
 
 	script(type='text/javascript').
+		/* Initializing Dataset and default setting graph */
+		var graph = !{graph}
 		var set = new Dataset(graph.data);
-		var year = set.getCurrentYear(true);
-		console.log(year);
-		//- for (var i=0; i<year.length; i++) {
-		//- 		console.log(year[i][0]);
-		//- 	}
-		//- Graph('#graph-container', graph.data);
 		Graph('#graph-container', set.getCurrentMonth(true));
 
 	script(type='text/javascript').
+		/* Document ready */
 		$(document).ready(function() {
 			$('#graph-time-options > .btn').on('click', function() {
 				$('#graph-container').empty();
-				Graph('#graph-container', getDataset(set, $(this).attr('id')))
+				Graph('#graph-container', getDataset(set, $(this).attr('id')));
+				$('#graph-time-options > .btn').removeClass('active');
+				$(this).addClass('active');
 			});
 		});
 

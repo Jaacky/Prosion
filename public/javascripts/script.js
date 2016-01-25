@@ -81,10 +81,12 @@ function getDataset(set, option) {
 	}
 }
 
+/* NOT NEEDED 
 function convertDateToDayNumber(date) {
 	console.log(moment(date, 'x').format('DDD'));
 	return parseInt(moment(date, 'x').format('DDD'));
 }
+*/
 
 function Graph(container, dataset) {
 	var width = 500,
@@ -123,23 +125,23 @@ function Graph(container, dataset) {
 		})
 		.attr('r', 3);
 
-	svg.selectAll('text')
-		.data(dataset)
-		.enter()
-		.append('text')
-		.text(function(d) {
-			return d[0] + ", " + d[1];
-		})
-		.attr('x', function(d) {
-			// return xScale(convertDateToDayNumber(d[0]));
-			return xScale(d[0]);
-		})
-		.attr('y', function(d) {
-			return yScale(d[1]);
-		})
-		.attr('font-family', 'sans-serif')
-		.attr('font-size', '12px')
-		.attr('fill', 'teal');
+	// svg.selectAll('text')
+	// 	.data(dataset)
+	// 	.enter()
+	// 	.append('text')
+	// 	.text(function(d) {
+	// 		return d[0] + ", " + d[1];
+	// 	})
+	// 	.attr('x', function(d) {
+	// 		// return xScale(convertDateToDayNumber(d[0]));
+	// 		return xScale(d[0]);
+	// 	})
+	// 	.attr('y', function(d) {
+	// 		return yScale(d[1]);
+	// 	})
+	// 	.attr('font-family', 'sans-serif')
+	// 	.attr('font-size', '12px')
+	// 	.attr('fill', 'teal');
 
 	svg.append('g')
 			.attr('class', 'axis')
