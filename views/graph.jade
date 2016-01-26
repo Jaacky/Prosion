@@ -57,7 +57,16 @@ block content
 				console.log('after: ', date);
 				Graph('#graph-container', getDataset(set, date, option));
 			});
+
 			// Backward in time
+			$('#backward').on('click', function() {
+				var option = $('#graph-time-options > .btn.active').attr('id');
+				console.log('before: ', date);
+				backwardDate('#date', date, option);
+				console.log('after: ', date);
+				Graph('#graph-container', getDataset(set, date, option));
+			});
+
 			// Time options
 			$('#graph-time-options > .btn').on('click', function() {
 				var id = $(this).attr('id');

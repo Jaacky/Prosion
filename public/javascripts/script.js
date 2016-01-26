@@ -119,6 +119,20 @@ function forwardDate(container, date, option) {
 	return formatDate(container, date, option);
 }
 
+function backwardDate(container, date, option) {
+	if (OPTIONS[option] == 'year') {
+		date.subtract(1, 'y');
+	} else if (OPTIONS[option] == 'month') {
+		date.subtract(1, 'M');
+	} else if (OPTIONS[option] == 'week') {
+		date.subtract(1, 'w');
+	} else { // not one of the options
+		return -1;
+	}
+
+	return formatDate(container, date, option);
+}
+
 /* NOT NEEDED 
 function convertDateToDayNumber(date) {
 	console.log(moment(date, 'x').format('DDD'));
