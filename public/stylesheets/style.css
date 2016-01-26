@@ -153,6 +153,15 @@ GRAPH
 	text-align: center;
 }
 
+#graphInputForm > * {
+	margin-right: 10px;
+}
+
+#graphInputForm input {
+	text-align: center;
+	padding: 6px;
+}
+
 .date > * {
 	display: inline-block;
 }
