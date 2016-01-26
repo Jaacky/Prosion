@@ -14,13 +14,15 @@ block content
 					input(type='string', id='id', name='id' value=graphId hidden required)
 					button.btn.btn-default(type='submit') Add
 
-		.row
+		.row.graph-container
 			.col-md-12.options-group#graph-time-options
 				button.btn.btn-default#graph-year-option Year
 				button.btn.btn-default#graph-month-option.active Month
 				button.btn.btn-default#graph-week-option Week
-			.col-md-12
-				#date
+			.col-md-12.date
+				button.btn.btn-default#backward &lt;
+				h3#date
+				button.btn.btn-default#forward &gt;
 			.col-md-12
 				#graph-container
 
@@ -41,18 +43,25 @@ block content
 		var graph = !{graph}
 		var set = new Dataset(graph.data);
 		Graph('#graph-container', set.getCurrentMonth(true));
-
 		var date = moment();
 		formatDate('#date', date, 'month');
 
 	script(type='text/javascript').
 		/* Document ready */
 		$(document).ready(function() {
+			// Forward in time
+			$('#forward').on('click', function() {
+				var option = $('#graph-time-options > .btn.active').attr('id');
+				console.log('before: ', date);
+				forwardDate('#date', date, option);
+				console.log('after: ', date);
+			});
+			// Backward in time
+			// Time options
 			$('#graph-time-options > .btn').on('click', function() {
 				var id = $(this).attr('id');
 				formatDate('#date', date, id);
 
-				$('#graph-container').empty();
 				Graph('#graph-container', getDataset(set, $(this).attr('id')));
 				$('#graph-time-options > .btn').removeClass('active');
 				$(this).addClass('active');

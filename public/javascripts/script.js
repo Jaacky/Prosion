@@ -93,16 +93,30 @@ function getDataset(set, option) {
 function formatDate(container, date, option) {
 	if (OPTIONS[option] == 'year') {
 		$(container).html(date.format('YYYY'));
-		return 0;
+		return date;
 	} else if (OPTIONS[option] == 'month') {
 		$(container).html(date.format('MMMM YYYY'));
-		return 0;
+		return date;
 	} else if (OPTIONS[option] == 'week') {
 		$(container).html(date.format('wo') + ' week of ' + date.format('YYYY'));
-		return 0;
+		return date;
+	} else { // not one of the options
+		return date;
+	}
+}
+
+function forwardDate(container, date, option) {
+	if (OPTIONS[option] == 'year') {
+		date.add(1, 'y');
+	} else if (OPTIONS[option] == 'month') {
+		date.add(1, 'M');
+	} else if (OPTIONS[option] == 'week') {
+		date.add(1, 'w');
 	} else { // not one of the options
 		return -1;
 	}
+
+	return formatDate(container, date, option);
 }
 
 /* NOT NEEDED 
@@ -113,6 +127,7 @@ function convertDateToDayNumber(date) {
 */
 
 function Graph(container, dataset) {
+	$(container).empty();
 	var width = 500,
 		height = 300,
 		padding = 30,
