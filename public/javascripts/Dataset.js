@@ -18,78 +18,78 @@ function loop(condition, data, conversion) {
 }
 
 /*
-* Return dataset of the current year
+* Return dataset of the year
 */
-Dataset.prototype.getCurrentYear = function(conversion) {
-	var currentYear = moment().year();
-	var currentYearCondition = function(d) {
-		return currentYear == d.year();
+Dataset.prototype.getYearSet = function(date, conversion) {
+	var year = date.year();
+	var yearCondition = function(d) {
+		return year == d.year();
 	};
 	var convertDate = function(d) {
 		newX = parseInt(moment(d[0], 'x').format('DDD'));
 		return [newX, d[1]];
 	}
 	if (conversion) {
-		return loop(currentYearCondition, this.data, convertDate);
+		return loop(yearCondition, this.data, convertDate);
 	} else {
-		return loop(currentYearCondition, this.data, false);
+		return loop(yearCondition, this.data, false);
 	}
 }
 
 /*
-* Return dataset of the current month
+* Return dataset of the month
 */
-Dataset.prototype.getCurrentMonth = function(conversion) {
-	var currentMonth = moment().month();
-	var currentMonthCondition = function(d) {
-		return currentMonth == d.month();
+Dataset.prototype.getMonthSet = function(date, conversion) {
+	var month = date.month();
+	var monthCondition = function(d) {
+		return month == d.month();
 	};
 	var convertDate = function(d) {
 		newX = parseInt(moment(d[0], 'x').format('D'));
 		return [newX, d[1]];
 	}
 	if (conversion) {
-		return loop(currentMonthCondition, this.getCurrentYear(false), convertDate);
+		return loop(monthCondition, this.getYearSet(date, false), convertDate);
 	} else {
-		return loop(currentMonthCondition, this.getCurrentYear(false), false);
+		return loop(monthCondition, this.getYearSet(date, false), false);
 	}
 }
 
 /*
-* Return dataset of the current week
+* Return dataset of the week
 */
-Dataset.prototype.getCurrentWeek = function(conversion) {
-	var currentWeek = moment().week();
-	var currentWeekCondition = function(d) {
-		return currentWeek == d.week();
+Dataset.prototype.getWeekSet = function(date, conversion) {
+	var week = date.week();
+	var weekCondition = function(d) {
+		return week == d.week();
 	}
 	var convertDate = function(d) {
 		newX = parseInt(moment(d[0], 'x').format('d')) + 1; // Need to add 1 because week starts at 0
 		return [newX, d[1]];
 	}
 	if (conversion) {
-		return loop(currentWeekCondition, this.getCurrentMonth(false), convertDate);
+		return loop(weekCondition, this.getMonthSet(date, false), convertDate);
 	} else {
-		return loop(currentWeekCondition, this.getCurrentMonth(false), false);
+		return loop(weekCondition, this.getMonthSet(date, false), false);
 	}
 }
 
 /*
-* Return the dataset from num years from current date
+* Return the dataset from num years from date
 */
 Dataset.prototype.backPreviousYears = function(num) {
 
 }
 
 /*
-* Return the dataset from num months from current date
+* Return the dataset from num months from date
 */
 Dataset.prototype.backPreviousMonths = function(num) {
 
 }
 
 /*
-* Return the dataset from num weeks from current date
+* Return the dataset from num weeks from date
 */
 Dataset.prototype.backPreviousWeeks = function(num) {
 
