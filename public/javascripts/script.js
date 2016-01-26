@@ -69,12 +69,18 @@ function appendGraphButtons(container, graphs) {
 	}
 }
 
+var OPTIONS = {
+	'graph-year-option' : 'year',
+	'graph-month-option' : 'month',
+	'graph-week-option' : 'week'
+};
+
 function getDataset(set, option) {
-	if (option == 'graph-year-option') {
+	if (OPTIONS[option] == 'year') {
 		return set.getCurrentYear(true);
-	} else if (option == 'graph-month-option') {
+	} else if (OPTIONS[option] == 'month') {
 		return set.getCurrentMonth(true);
-	} else if (option == 'graph-week-option') {
+	} else if (OPTIONS[option] == 'week') {
 		return set.getCurrentWeek(true);
 	} else { // not one of the options
 		return [];
