@@ -70,6 +70,9 @@ function appendGraphButtons(container, graphs) {
 }
 
 var OPTIONS = {
+	'year' : 'year',
+	'month' : 'month',
+	'week' : 'week',
 	'graph-year-option' : 'year',
 	'graph-month-option' : 'month',
 	'graph-week-option' : 'week'
@@ -84,6 +87,21 @@ function getDataset(set, option) {
 		return set.getCurrentWeek(true);
 	} else { // not one of the options
 		return [];
+	}
+}
+
+function formatDate(container, date, option) {
+	if (OPTIONS[option] == 'year') {
+		$(container).html(date.format('YYYY'));
+		return 0;
+	} else if (OPTIONS[option] == 'month') {
+		$(container).html(date.format('MMMM YYYY'));
+		return 0;
+	} else if (OPTIONS[option] == 'week') {
+		$(container).html(date.format('wo') + ' week of ' + date.format('YYYY'));
+		return 0;
+	} else { // not one of the options
+		return -1;
 	}
 }
 
