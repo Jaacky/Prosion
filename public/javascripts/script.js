@@ -78,13 +78,13 @@ var OPTIONS = {
 	'graph-week-option' : 'week'
 };
 
-function getDataset(set, option) {
+function getDataset(set, date, option) {
 	if (OPTIONS[option] == 'year') {
-		return set.getCurrentYear(true);
+		return set.getYearSet(date, true);
 	} else if (OPTIONS[option] == 'month') {
-		return set.getCurrentMonth(true);
+		return set.getMonthSet(date, true);
 	} else if (OPTIONS[option] == 'week') {
-		return set.getCurrentWeek(true);
+		return set.getWeekSet(date, true);
 	} else { // not one of the options
 		return [];
 	}
