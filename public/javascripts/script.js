@@ -140,12 +140,28 @@ function convertDateToDayNumber(date) {
 }
 */
 
-function Graph(container, dataset) {
+var DAYOFWEEK = {
+	1 : "Sun",
+	2 : "Mon",
+	3 : "Tues",
+	4 : "Wed",
+	5 : "Thur",
+	6 : "Fri",
+	7 : "Sat"
+};
+
+function weekAxis(d) {
+	return DAYOFWEEK[d];
+}
+
+function Graph(container, dataset, option) {
 	$(container).empty();
+
 	var width = 500,
 		height = 300,
-		padding = 30,
-		xScale = d3.scale.linear()
+		padding = 30;
+		
+	var xScale = d3.scale.linear()
 				.domain([0, d3.max(dataset, function(d) { //return convertDateToDayNumber(d[0]);
 					return d[0];
 				})])
@@ -159,6 +175,14 @@ function Graph(container, dataset) {
 		yAxis = d3.svg.axis()
 				.scale(yScale)
 				.orient('left');
+
+	if (OPTIONS[option] == 'year') {
+
+	} else if (OPTIONS[option] == 'month') {
+
+	} else { //(OPTIONS[option] == 'week')
+		xAxis.tickFormat(weekAxis);
+	}
 
 	var svg = d3.select(container)
 				.append('svg')
