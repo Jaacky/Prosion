@@ -149,6 +149,19 @@ DASHBOARD
 GRAPH
 ******************/
 
+.graphHeader {
+	margin-top: 20px;
+}
+
+#graphNameInput {
+	display: none;
+	padding: 6px;
+}
+
+#graphNameUpdate {
+	display: none;
+}
+
 .graph-container {
 	text-align: center;
 }

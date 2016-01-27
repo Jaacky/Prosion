@@ -42,4 +42,26 @@ router.post('/input', function(req, res) {
 	});
 });
 
+router.post('/updateGraphName', function(req, res) {
+	Graph.findOne({ _id : req.body.id }, function(err, graph) {
+		if (err) console.log(err);
+		else {
+			graph.name = req.body.graphName;
+			graph.save(function(err, graph) {
+				if (err) {
+					console.log("save error: " + err);
+				} else {
+					console.log("Updated graph name");
+						var response = {
+						    status  : 200,
+						    success : 'Updated Successfully',
+						    graphName : req.body.graphName
+						}
+					res.json({"graphName" : req.body.graphName});
+				}
+			});
+		}
+	});
+});
+
 module.exports = router;

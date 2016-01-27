@@ -4,9 +4,14 @@ block content
 	//- Including Dataset class
 	script(src='../javascripts/Dataset.js')
 	.container-fluid
-		h1#graphName= graphName
-		button.btn.btn-default#editGraphName(type="button" aria-label="Left Align")
-			span.glyphicon.glyphicon-pencil(aria-hidden="true")
+		.row.graphHeader
+			.col-sm-12
+				h1
+					input#graphNameInput(value=graphName)
+				button.btn.btn-default#graphNameUpdate Update
+				h1#graphName= graphName
+				button.btn.btn-default#editGraphName(type="button" aria-label="Left Align")
+					span.glyphicon.glyphicon-pencil(aria-hidden="true")
 		.row
 			.col-sm-12
 				h2 New value
@@ -54,7 +59,24 @@ block content
 		$(document).ready(function() {
 			// Edit graph name
 			$('#editGraphName').on('click', function() {
-				$('#graphName').after('<input>');
+				$('#graphName').css('display', 'none');
+				$('#editGraphName').css('display', 'none');
+				$('#graphNameInput').css('display', 'block').select();
+				$('#graphNameUpdate').css('display', 'block');
+			});
+
+			// Update graph name
+			$('#graphNameUpdate').on('click', function() {
+				$.post('/graph/updateGraphName',
+					{ graphName : $('#graphNameInput').val(),
+					  id : $('#id').val() },
+					function(response) {
+						$('#graphNameInput').css('display', 'none');
+						$('#graphNameUpdate').css('display', 'none');
+						$('#graphName').css('display', 'block').html(response.graphName);
+						$('#editGraphName').css('display', 'block');
+					}
+				);
 			});
 
 			// Forward in time
