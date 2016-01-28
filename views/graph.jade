@@ -5,16 +5,18 @@ block content
 	script(src='../javascripts/Dataset.js')
 	.container-fluid
 		.row.graphHeader
-			.col-sm-12
-				h1
-					input#graphNameInput(value=graphName)
-				button.btn.btn-default#graphNameUpdate Update
-				h1#graphName= graphName
-				button.btn.btn-default#editGraphName(type="button" aria-label="Left Align")
+			.col-sm-6
+				.input-group
+					input.form-control.graphNameOption#graphNameInput(value=graphName)
+					span.input-group-btn
+						button.btn.btn-default.graphNameOption#graphNameUpdate Update
+						button.btn.btn-default.graphNameOption#graphNameBack x
+				h1.graphNameOption.awake#graphName= graphName
+				button.btn.btn-default.graphNameOption.awake#editGraphName(type="button" aria-label="Left Align")
 					span.glyphicon.glyphicon-pencil(aria-hidden="true")
 		.row
 			.col-sm-12
-				h2 New value
+				h3 New point:
 				form(action='/graph/input', method='post')#graphInputForm
 					input(type='text', id='datepicker', name='date' required)
 					input(type='number', id='value', name='value', placeholder='Value' required)
@@ -59,11 +61,20 @@ block content
 		$(document).ready(function() {
 			// Edit graph name
 			$('#editGraphName').on('click', function() {
-				$('#graphName').css('display', 'none');
-				$('#editGraphName').css('display', 'none');
-				$('#graphNameInput').css('display', 'block').select();
-				$('#graphNameUpdate').css('display', 'block');
+				$('#graphName').toggleClass('awake');
+				$('#editGraphName').toggleClass('awake');
+				$('#graphNameInput').toggleClass('awake').select();
+				$('#graphNameBack').toggleClass('awake');
+				$('#graphNameUpdate').toggleClass('awake');
 			});
+
+			$('#graphNameBack').on('click', function() {
+				$('#graphNameInput').toggleClass('awake');
+				$('#graphNameBack').toggleClass('awake');
+				$('#graphNameUpdate').toggleClass('awake');
+				$('#graphName').toggleClass('awake');
+				$('#editGraphName').toggleClass('awake');
+			});			
 
 			// Update graph name
 			$('#graphNameUpdate').on('click', function() {
@@ -71,10 +82,11 @@ block content
 					{ graphName : $('#graphNameInput').val(),
 					  id : $('#id').val() },
 					function(response) {
-						$('#graphNameInput').css('display', 'none');
-						$('#graphNameUpdate').css('display', 'none');
-						$('#graphName').css('display', 'block').html(response.graphName);
-						$('#editGraphName').css('display', 'block');
+						$('#graphNameInput').toggleClass('awake');
+						$('#graphNameBack').toggleClass('awake');
+						$('#graphNameUpdate').toggleClass('awake');
+						$('#graphName').toggleClass('awake').html(response.graphName);
+						$('#editGraphName').toggleClass('awake');
 					}
 				);
 			});

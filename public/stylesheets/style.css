@@ -153,13 +153,22 @@ GRAPH
 	margin-top: 20px;
 }
 
-#graphNameInput {
+.graphNameOption, .input-group .form-control.graphNameOption {
 	display: none;
-	padding: 6px;
 }
 
-#graphNameUpdate {
-	display: none;
+.graphNameOption.awake, .input-group .form-control.graphNameOption.awake {
+	display: inline-block;
+}
+
+#editGraphName {
+	margin-bottom: 15px;
+	margin-left: 15px;
+}
+
+#graphNameInput {
+	padding-left: 15px;
+	font-size: 18px;
 }
 
 .graph-container {
