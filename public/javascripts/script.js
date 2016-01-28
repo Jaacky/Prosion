@@ -160,7 +160,7 @@ function Graph(container, dataset, option) {
 	var width = 600,
 		height = 300,
 		padding = 30,
-		xPadding = 65,
+		xPadding = 50,
 		yPadding = 45;
 		
 	var xScale = d3.scale.linear()
@@ -241,7 +241,7 @@ function Graph(container, dataset, option) {
 	svg.append('text')
 		.attr('transform', 'rotate(-90)')
 		.attr('x', 0 - (height / 2))
-		.attr('y', xPadding / 2)
+		.attr('y', xPadding / 4)
 		.style('text-anchor', 'middle')
 		.text('Value');
 	return 0;
