@@ -157,18 +157,20 @@ function weekAxis(d) {
 function Graph(container, dataset, option) {
 	$(container).empty();
 
-	var width = 500,
+	var width = 600,
 		height = 300,
-		padding = 30;
+		padding = 30,
+		xPadding = 65,
+		yPadding = 45;
 		
 	var xScale = d3.scale.linear()
 				.domain([0, d3.max(dataset, function(d) { //return convertDateToDayNumber(d[0]);
 					return d[0];
 				})])
-				.range([padding, width - padding * 2]),
+				.range([xPadding, width - xPadding * 2]),
 		yScale = d3.scale.linear()
 				.domain([0, d3.max(dataset, function(d) { return d[1]; })])
-				.range([height - padding, padding]),
+				.range([height - yPadding, yPadding]),
 		xAxis = d3.svg.axis()
 				.scale(xScale)
 				.orient('bottom'),
@@ -222,13 +224,26 @@ function Graph(container, dataset, option) {
 
 	svg.append('g')
 			.attr('class', 'axis')
-			.attr('transform', 'translate(0,' + (height - padding) + ')')
+			.attr('transform', 'translate(0,' + (height - yPadding) + ')')
 			.call(xAxis);
 
 	svg.append('g')
 		.attr('class', 'axis')
-		.attr('transform', 'translate(' + padding + ', 0)')
+		.attr('transform', 'translate(' + xPadding + ', 0)')
 		.call(yAxis);
+
+	svg.append('text')
+		.attr('x', (width - xPadding) / 2)
+		.attr('y', height)
+		.style('text-anchor', 'middle')
+		.text('Time');
+
+	svg.append('text')
+		.attr('transform', 'rotate(-90)')
+		.attr('x', 0 - (height / 2))
+		.attr('y', xPadding / 2)
+		.style('text-anchor', 'middle')
+		.text('Value');
 	return 0;
 }
 
