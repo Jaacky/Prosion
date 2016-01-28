@@ -5,10 +5,14 @@ block content
 		h1 Dashboard
 		.row#dashboard-menu
 			.col-sm-12
-				button.btn.btn-default#newGraph New Graph
+				//- button.btn.btn-default#newGraph New Graph
+				h2 New Graph:
+			.col-sm-6
 				form#createGraphForm(action='/createGraph', method='post')
-					input(type='text', id='graphName', name='graphName', placeholder='Graph Name')
-					button.btn.btn-default#createGraph(type='submit') Create
+					.input-group
+						input.form-control(type='text', id='graphName', name='graphName', placeholder='Graph Name')
+						span.input-group-btn
+							button.btn.btn-default#createGraph(type='submit') Create
 		.row#personal-graphs
 			.col-sm-12
 				h2 Personal Graphs
@@ -24,11 +28,11 @@ block content
 		graphs = !{graphs}
 		appendGraphButtons('#personal-graphs', graphs);
 
-		$(document).ready(function() {
-			$('#newGraph').on('click', function() {
-				$('#createGraphForm').css('display', 'block');
-			});
-		});
+		//- $(document).ready(function() {
+		//- 	$('#newGraph').on('click', function() {
+		//- 		$('#createGraphForm').css('display', 'block');
+		//- 	});
+		//- });
 
 
 

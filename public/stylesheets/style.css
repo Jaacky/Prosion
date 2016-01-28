@@ -132,10 +132,6 @@ DASHBOARD
 	padding: 5px;
 }
 
-#createGraphForm {
-	display: none;
-}
-
 .btn-graph {
 	width: 100%;
 }
