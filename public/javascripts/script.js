@@ -164,9 +164,7 @@ function Graph(container, dataset, option) {
 		yPadding = 45;
 		
 	var xScale = d3.scale.linear()
-				.domain([0, d3.max(dataset, function(d) { //return convertDateToDayNumber(d[0]);
-					return d[0];
-				})])
+				.domain([0, d3.max(dataset, function(d) { return d[0]; })])
 				.range([xPadding, width - xPadding * 2]),
 		yScale = d3.scale.linear()
 				.domain([0, d3.max(dataset, function(d) { return d[1]; })])
@@ -178,11 +176,7 @@ function Graph(container, dataset, option) {
 				.scale(yScale)
 				.orient('left');
 
-	if (OPTIONS[option] == 'year') {
-
-	} else if (OPTIONS[option] == 'month') {
-
-	} else { //(OPTIONS[option] == 'week')
+	if (OPTIONS[option] == 'week') {
 		xAxis.tickFormat(weekAxis);
 	}
 
@@ -196,31 +190,12 @@ function Graph(container, dataset, option) {
 		.enter()
 		.append('circle')
 		.attr('cx', function(d) {
-			// return xScale(convertDateToDayNumber(d[0]));
 			return xScale(d[0]);
 		})
 		.attr('cy', function(d) {
 			return yScale(d[1]);
 		})
 		.attr('r', 3);
-
-	// svg.selectAll('text')
-	// 	.data(dataset)
-	// 	.enter()
-	// 	.append('text')
-	// 	.text(function(d) {
-	// 		return d[0] + ", " + d[1];
-	// 	})
-	// 	.attr('x', function(d) {
-	// 		// return xScale(convertDateToDayNumber(d[0]));
-	// 		return xScale(d[0]);
-	// 	})
-	// 	.attr('y', function(d) {
-	// 		return yScale(d[1]);
-	// 	})
-	// 	.attr('font-family', 'sans-serif')
-	// 	.attr('font-size', '12px')
-	// 	.attr('fill', 'teal');
 
 	svg.append('g')
 			.attr('class', 'axis')
@@ -244,6 +219,7 @@ function Graph(container, dataset, option) {
 		.attr('y', xPadding / 4)
 		.style('text-anchor', 'middle')
 		.text('Value');
+		
 	return 0;
 }
 
