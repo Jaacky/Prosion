@@ -55,7 +55,7 @@ block content
 		var date = moment();
 		var option = $('#graph-time-options > .btn.active').attr('id');
 		formatDate('#date', date, 'month');
-		Graph('#graph-container', set.getMonthSet(date, true), option);
+		Graph('#graph-container', [set.getMonthSet(date, true)], option);
 
 	script(type='text/javascript').
 		/* Document ready */
@@ -98,7 +98,7 @@ block content
 				console.log('before: ', date);
 				forwardDate('#date', date, option);
 				console.log('after: ', date);
-				Graph('#graph-container', getDataset(set, date, option), option);
+				Graph('#graph-container', [getDataset(set, date, option)], option);
 			});
 
 			// Backward in time
@@ -107,7 +107,7 @@ block content
 				console.log('before: ', date);
 				backwardDate('#date', date, option);
 				console.log('after: ', date);
-				Graph('#graph-container', getDataset(set, date, option), option);
+				Graph('#graph-container', [getDataset(set, date, option)], option);
 			});
 
 			// Time options
@@ -115,7 +115,7 @@ block content
 				var id = $(this).attr('id');
 				formatDate('#date', date, id);
 				var option = $(this).attr('id');
-				Graph('#graph-container', getDataset(set, date, option), option);
+				Graph('#graph-container', [getDataset(set, date, option)], option);
 				$('#graph-time-options > .btn').removeClass('active');
 				$(this).addClass('active');
 			});

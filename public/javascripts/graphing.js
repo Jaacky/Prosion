@@ -72,11 +72,34 @@ var DAYOFWEEK = {
 	7 : "Sat"
 };
 
+function plotPoints(svg, scales, dataset) {
+	svg.selectAll('circle')
+	.data(dataset)
+	.enter()
+	.append('circle')
+	.attr('cx', function(d) {
+		return scales.x(d[0]);
+	})
+	.attr('cy', function(d) {
+		return scales.y(d[1]);
+	})
+	.attr('r', 3);
+}
+
 function weekAxis(d) {
 	return DAYOFWEEK[d];
 }
 
-function Graph(container, dataset, option) {
+function Graph(container, datasets, option) {
+	var completeSet = [];
+	for (var i=0; i<datasets.length; i++) {
+		completeSet = completeSet.concat(datasets[i]);
+	}
+
+	console.log(datasets);
+	console.log(completeSet);
+	console.log(datasets[0]);
+
 	$(container).empty();
 
 	var width = 600,
@@ -86,10 +109,10 @@ function Graph(container, dataset, option) {
 		yPadding = 45;
 		
 	var xScale = d3.scale.linear()
-				.domain([0, d3.max(dataset, function(d) { return d[0]; })])
+				.domain([0, d3.max(completeSet, function(d) { return d[0]; })])
 				.range([xPadding, width - xPadding * 2]),
 		yScale = d3.scale.linear()
-				.domain([0, d3.max(dataset, function(d) { return d[1]; })])
+				.domain([0, d3.max(completeSet, function(d) { return d[1]; })])
 				.range([height - yPadding, yPadding]),
 		xAxis = d3.svg.axis()
 				.scale(xScale)
@@ -107,17 +130,9 @@ function Graph(container, dataset, option) {
 				.attr('width', width)
 				.attr('height', height);
 
-	svg.selectAll('circle')
-		.data(dataset)
-		.enter()
-		.append('circle')
-		.attr('cx', function(d) {
-			return xScale(d[0]);
-		})
-		.attr('cy', function(d) {
-			return yScale(d[1]);
-		})
-		.attr('r', 3);
+	for (var i=0; i<datasets.length; i++) {
+		plotPoints(svg, { 'x' : xScale, 'y' : yScale }, datasets[i]);
+	}
 
 	svg.append('g')
 			.attr('class', 'axis')
