@@ -49,14 +49,14 @@ router.get('/', function(req, res, next) {
      req.headers['x-forwarded-for'];
      console.log(ip);
 	if (req.user) {
-		res.redirect('/landing');
+		res.redirect('/dashboard');
 	}
 	res.render('index');
 });
 
 router.get('/login', function(req, res) {
 	if (req.user) {
-		res.redirect('/landing');
+		res.redirect('/dashboard');
 	}
 	else  {
 		res.render('login', {message: req.flash('error')});
@@ -64,7 +64,7 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', 
-	passport.authenticate('local', { successRedirect: '/landing',
+	passport.authenticate('local', { successRedirect: '/dashboard',
 									 failureRedirect: '/login',
 									 failureFlash: true })
 );
@@ -116,7 +116,7 @@ router.post('/signup', function(req, res) {
 							} else {
 								console.log("signup successful ", data);
 								passport.authenticate('local')(req, res, function() {
-									res.redirect('/landing');
+									res.redirect('/dashboard');
 								});
 							}
 						});
@@ -129,10 +129,10 @@ router.post('/signup', function(req, res) {
 	}
 });
 
-router.get('/landing', function(req, res) {
+router.get('/dashboard', function(req, res) {
 	if (req.user) { 
 		// User.find({}, function(err, users) {
-		// 	//res.render('landing', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
+		// 	//res.render('dashboard', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
 		// 	res.render('dashboard', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
 		// });
 
@@ -160,7 +160,7 @@ router.post('/createGraph', function(req, res) {
 	User.findOne({_id: req.user._id}, function(err, user) {
 		if (err) {
 			console.log(err);
-			res.redirect('/landing');
+			res.redirect('/dashboard');
 		} else {
 			var newGraph = new Graph({
 				owner: user._id,
@@ -171,17 +171,17 @@ router.post('/createGraph', function(req, res) {
 			newGraph.save(function(err, graph) {
 				if (err) {
 					console.log(err);
-					res.redirect('/landing');
+					res.redirect('/dashboard');
 				} else {
 					console.log('successfully created new graph');
 					user.graphs.push(graph._id);
 					user.save(function(err) {
 						if (err) {
 							console.log(err);
-							res.redirect('/landing');
+							res.redirect('/dashboard');
 						} else {
 							console.log('successfully updated user');
-							res.redirect('/landing');
+							res.redirect('/dashboard');
 						}
 					})
 				}

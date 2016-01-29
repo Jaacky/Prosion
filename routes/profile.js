@@ -71,7 +71,7 @@ router.get('/:userId', function(req, res, next) {
 			if (err) console.log(err);
 			if (!user) {
 				console.log("Profile doesn't exist");
-				res.redirect('/landing');
+				res.redirect('/dashboard');
 			}
 			res.render('profile', { user: JSON.stringify(req.user), otherUser: JSON.stringify(user) });
 		});
@@ -83,7 +83,7 @@ router.get('/:userId', function(req, res, next) {
 
 router.post('/delete', function(req, res, next) {
 	User.remove( { _id: req.body._id }, function(err) {
-		res.redirect('/landing');
+		res.redirect('/dashboard');
 	});
 });
 
@@ -91,7 +91,7 @@ router.post('/toggleAdmin', function(req, res, next) {
 	User.findOne({ _id: req.body._id }, function(err, user) {
 		if (err) console.log(err);
 		if (!user) {
-			res.redirect('/landing');
+			res.redirect('/dashboard');
 		}
 		var admin = user.admin;
 		user.admin = !admin;
