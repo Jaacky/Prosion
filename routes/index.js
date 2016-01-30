@@ -3,6 +3,7 @@ var router = express.Router();
 var flash = require('connect-flash');
 var User = require('../models/User.js');
 var Graph = require('../models/Graph.js');
+var Fusion = require('../models/Fusion.js');
 var Analytics = require('../models/Analytics.js');
 var superAdmin = require('../models/first.js');
 var passport = require('passport');
@@ -140,9 +141,14 @@ router.get('/dashboard', function(req, res) {
 			Graph.find({
 				_id : { $in : user.graphs}
 			}, function(err, graphs) {
-				console.log(graphs);
-				console.log(user);
-				res.render('dashboard', { user:JSON.stringify(user), graphs: JSON.stringify(graphs) });
+				// console.log(graphs);
+				// console.log(user);
+				Fusion.find({
+					owners : user._id
+				}, function(err, fusions) {
+					console.log(fusions);
+					res.render('dashboard', { user:JSON.stringify(user), graphs: JSON.stringify(graphs), fusions: JSON.stringify(fusions) });
+				});
 			});
 		});
 	}

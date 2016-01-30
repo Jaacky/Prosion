@@ -3,6 +3,7 @@ var router = express.Router();
 var flash = require('connect-flash');
 var User = require('../models/User.js');
 var Graph = require('../models/Graph.js');
+var Fusion = require('../models/Fusion.js');
 var moment = require('moment');
 
 /* Check if user is logged in */
@@ -12,6 +13,26 @@ router.use(function(req, res, next) {
 	} else {
 		next();
 	}
+});
+
+router.get('/fusion', function(req, res) {
+	console.log(req.user);
+	res.render('fusion');
+});
+
+router.post('/fuse', function(req, res) {
+	console.log(req.body);
+	var fusion = new Fusion({
+		owners : [req.user._id],
+		name : req.body.name,
+		graphs : [req.body.id1, req.body.id2]
+	});
+
+	fusion.save(function(err, fusion) {
+		console.log("err:", err);
+		console.log(fusion);
+	});
+	res.redirect('/dashboard');
 });
 
 router.get('/:id', function(req, res) {
