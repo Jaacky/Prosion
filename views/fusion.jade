@@ -1,0 +1,35 @@
+extends layout
+
+block content
+	script(src='../javascripts/bootstrap.min.js')
+	.container-fluid
+		.row
+			.col-sm-12
+				h1 Fusion baby
+
+		.row
+			form(action='/graph/fuse', method='post')
+				.col-sm-6
+					input(name='name', placeholder='Fusion Name')
+				.col-sm-6
+					input(name='id1' placeholder='Graph 1' value='56a5288d827d9f871440be22')
+				.col-sm-6
+					input(name='id2', placeholder='Graph 2', value='56a5288d827d9f871440be22')
+				//- .col-sm-6
+				//- 	.input-group
+				//- 		input.form-control(aria-label="...")
+				//- 		.input-group-btn
+				//- 			button.btn.btn-default.dropdown-toggle(data-toggle='dropdown' aria-haspopup="true" aria-expanded="false")
+				//- 				span.caret
+				//- 			ul.dropdown-menu.dropdown-menu-right
+				//- 				li
+				//- 					a(href='#') Action
+				//- 				li
+				//- 					a(href='#') Another
+				//- 				li
+				//- 					a(href='#') Something else
+				//- 				li.divider(role='separator')
+				//- 				li
+				//- 					a(href='#') Separated
+				.col-sm-6
+					button.btn.btn-default(type='submit') Fuse plz

@@ -25,7 +25,11 @@ block content
 	script(type='text/javascript').
 		currentUser = !{user}
 		graphs = !{graphs}
+		var fusions = !{fusions}
+		console.log(fusions);
 		appendGraphButtons('#personal-graphs', graphs);
+		appendGraphButtons('#group-graphs', fusions);
+
 
 
 
