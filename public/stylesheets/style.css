@@ -149,6 +149,10 @@ GRAPH
 	margin-top: 20px;
 }
 
+.graphHeader h1 {
+	margin-top: 0;
+}
+
 .graphNameOption, .input-group .form-control.graphNameOption {
 	display: none;
 }
