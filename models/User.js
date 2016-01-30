@@ -12,7 +12,8 @@ var userSchema = new Schema({
 	image : { type: String, default: 'images/avatar.png' },
 	superAdmin: { type: Boolean, default: false },
 	admin: { type: Boolean, default: false },
-	graphs : [ { type: Schema.Types.ObjectId, ref: 'Graph' } ]
+	graphs : [ { type: Schema.Types.ObjectId, ref: 'Graph' } ],
+	fusions : [ { type: Schema.Types.ObjectId, ref: 'Fusion' } ]
 });
 
 userSchema.plugin(passportLocalMongoose);
