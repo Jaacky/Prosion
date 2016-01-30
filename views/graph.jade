@@ -15,9 +15,9 @@ block content
 				h1.graphNameOption.awake#graphName= graphName
 				button.btn.btn-default.graphNameOption.awake#editGraphName(type="button" aria-label="Left Align")
 					span.glyphicon.glyphicon-pencil(aria-hidden="true")
-			.col-sm-1.col-sm-offset-5
-				a(href='/graph/fusion')
-					button.btn.btn-default Self Fuse Baby
+			//- .col-sm-1.col-sm-offset-5
+			//- 	a(href='/graph/fuse')
+			//- 		button.btn.btn-default Self Fuse Baby
 		.row
 			.col-sm-12
 				h3 New point:
@@ -54,6 +54,7 @@ block content
 	script(type='text/javascript').
 		/* Initializing Dataset, default setting graph and default date */
 		var graph = !{graph}
+		console.log(graph);
 		var set = new Dataset(graph.data);
 		var date = moment();
 		var option = $('#graph-time-options > .btn.active').attr('id');

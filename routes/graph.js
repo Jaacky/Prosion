@@ -15,9 +15,9 @@ router.use(function(req, res, next) {
 	}
 });
 
-router.get('/fusion', function(req, res) {
+router.get('/fuse', function(req, res) {
 	console.log(req.user);
-	res.render('fusion');
+	res.render('fuse');
 });
 
 router.post('/fuse', function(req, res) {
@@ -37,7 +37,17 @@ router.post('/fuse', function(req, res) {
 
 router.get('/:id', function(req, res) {
 	Graph.findOne({ _id: req.params.id }, function(err, graph) {
-		res.render('graph', { graph: JSON.stringify(graph), graphName: graph.name, graphId: req.params.id });
+		if (err) {
+			console.log(err);
+		} else {
+			if (graph == undefined) {
+				Fusion.findOne({_id: req.params.id}, function(err, fusion) {
+					res.render('graph', { graph: JSON.stringify(fusion), graphName: fusion.name, graphId: req.params.id });
+				});
+			} else {
+				res.render('graph', { graph: JSON.stringify(graph), graphName: graph.name, graphId: req.params.id });
+			}
+		}
 	});
 });
 
