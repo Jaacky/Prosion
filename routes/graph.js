@@ -22,10 +22,17 @@ router.get('/fuse', function(req, res) {
 
 router.post('/fuse', function(req, res) {
 	console.log(req.body);
+	var graphs = [];
+	var numGraphs = req.body.numGraphs;
+	for (var i=1; i<=numGraphs; i++) {
+		var gID = 'graph-id' + i;
+		graphs.push({owner: req.user._id, graph: req.body[gID]});
+	}
+	console.log(graphs);
 	var fusion = new Fusion({
 		owners : [req.user._id],
 		name : req.body.name,
-		graphs : [req.body.id1, req.body.id2]
+		graphs : graphs
 	});
 
 	fusion.save(function(err, fusion) {
@@ -35,6 +42,16 @@ router.post('/fuse', function(req, res) {
 	res.redirect('/dashboard');
 });
 
+router.post('/get/:id', function(req, res) {
+	Graph.findOne({ _id: req.params.id}, function(err, graph) {
+		if (err) {
+			res.status(500).json({error: 'Could not find graph'});
+		} else {
+			res.json(graph);
+		}
+	});
+});
+
 router.get('/:id', function(req, res) {
 	Graph.findOne({ _id: req.params.id }, function(err, graph) {
 		if (err) {
@@ -42,7 +59,7 @@ router.get('/:id', function(req, res) {
 		} else {
 			if (graph == undefined) {
 				Fusion.findOne({_id: req.params.id}, function(err, fusion) {
-					res.render('graph', { graph: JSON.stringify(fusion), graphName: fusion.name, graphId: req.params.id });
+					res.render('fusion', { fusion: JSON.stringify(fusion), fusionName: fusion.name, fusionId: req.params.id });
 				});
 			} else {
 				res.render('graph', { graph: JSON.stringify(graph), graphName: graph.name, graphId: req.params.id });

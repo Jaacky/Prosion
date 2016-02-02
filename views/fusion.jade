@@ -1,35 +1,145 @@
 extends layout
 
 block content
-	script(src='../javascripts/bootstrap.min.js')
+	//- Including Dataset class
+	script(src='../javascripts/Dataset.js')
+	script(src='../javascripts/graphing.js')
 	.container-fluid
-		.row
-			.col-sm-12
-				h1 Fusion baby
+		.row.graphHeader
+			.col-sm-6
+				.input-group
+					input.form-control.graphNameOption#graphNameInput(value=fusionName)
+					span.input-group-btn
+						button.btn.btn-default.graphNameOption#graphNameUpdate Update
+						button.btn.btn-default.graphNameOption#graphNameBack x
+				h1.graphNameOption.awake#graphName= fusionName
+				h2#graphNames
+				button.btn.btn-default.graphNameOption.awake#editGraphName(type="button" aria-label="Left Align")
+					span.glyphicon.glyphicon-pencil(aria-hidden="true")
 
-		.row
-			form(action='/graph/fuse', method='post')
-				.col-sm-6
-					input(name='name', placeholder='Fusion Name')
-				.col-sm-6
-					input(name='id1' placeholder='Graph 1' value='56a5288d827d9f871440be22')
-				.col-sm-6
-					input(name='id2', placeholder='Graph 2', value='56a5288d827d9f871440be22')
-				//- .col-sm-6
-				//- 	.input-group
-				//- 		input.form-control(aria-label="...")
-				//- 		.input-group-btn
-				//- 			button.btn.btn-default.dropdown-toggle(data-toggle='dropdown' aria-haspopup="true" aria-expanded="false")
-				//- 				span.caret
-				//- 			ul.dropdown-menu.dropdown-menu-right
-				//- 				li
-				//- 					a(href='#') Action
-				//- 				li
-				//- 					a(href='#') Another
-				//- 				li
-				//- 					a(href='#') Something else
-				//- 				li.divider(role='separator')
-				//- 				li
-				//- 					a(href='#') Separated
-				.col-sm-6
-					button.btn.btn-default(type='submit') Fuse plz
+		.row.graph-container
+			.col-md-12.options-group#graph-time-options
+				button.btn.btn-default#graph-year-option Year
+				button.btn.btn-default#graph-month-option.active Month
+				button.btn.btn-default#graph-week-option Week
+			.col-md-12.date
+				button.btn.btn-default#backward &lt;
+				h3#date
+				button.btn.btn-default#forward &gt;
+			.col-md-12
+				#graph-container
+
+	script(type='text/javascript').
+		/* Initializing Dataset, default setting graph and default date */
+		var fusion = !{fusion}
+		console.log(fusion);
+		console.log(fusion.graphs[0].graph);
+		var graphs = fusion.graphs;
+		var requests = Array();
+		var names = [];
+		for (var i=0; i<graphs.length; i++) {
+			requests.push($.post('/graph/get/' + graphs[i].graph));
+		}
+		
+		var sets = [];
+		var date = moment();
+		var option = $('#graph-time-options > .btn.active').attr('id');
+		formatDate('#date', date, 'month');
+
+		var defer = $.when.apply($, requests);
+		defer.done(function() {
+			var monthSets = [];
+			$.each(arguments, function(index, responseData) {
+				console.log(responseData);
+				var graph = responseData[0];
+				var dataset = new Dataset(graph.data);
+				sets.push(dataset);
+				monthSets.push(dataset.getMonthSet(date, true));
+				names.push(graph.name);
+			});
+			Graph('#graph-container', monthSets, option);
+			console.log(names);
+			$('#graphNames').html(names.join(', '));
+		});
+		
+		//- $.ajax({
+		//- 	url: '/graph/get/' + fusion.graphs[0].graph,
+		//- 	method: 'post',
+		//- 	data: 'json',
+		//- 	success: function(data) {
+		//- 		console.log(data);
+		//- 	},
+		//- 	error: function(err) {
+		//- 		console.log(err);
+		//- 	}
+		//- });
+		//- var set = new Dataset(graph.data);
+		//- var date = moment();
+		//- var option = $('#graph-time-options > .btn.active').attr('id');
+		//- formatDate('#date', date, 'month');
+		//- Graph('#graph-container', [set.getMonthSet(date, true)], option);
+
+	script(type='text/javascript').
+		/* Document ready */
+		$(document).ready(function() {
+			// Edit graph name
+			$('#editGraphName').on('click', function() {
+				$('#graphName').toggleClass('awake');
+				$('#editGraphName').toggleClass('awake');
+				$('#graphNameInput').toggleClass('awake').select();
+				$('#graphNameBack').toggleClass('awake');
+				$('#graphNameUpdate').toggleClass('awake');
+			});
+
+			$('#graphNameBack').on('click', function() {
+				$('#graphNameInput').toggleClass('awake');
+				$('#graphNameBack').toggleClass('awake');
+				$('#graphNameUpdate').toggleClass('awake');
+				$('#graphName').toggleClass('awake');
+				$('#editGraphName').toggleClass('awake');
+			});			
+
+			// Update graph name
+			$('#graphNameUpdate').on('click', function() {
+				$.post('/graph/updateGraphName',
+					{ graphName : $('#graphNameInput').val(),
+					  id : $('#id').val() },
+					function(response) {
+						$('#graphNameInput').toggleClass('awake');
+						$('#graphNameBack').toggleClass('awake');
+						$('#graphNameUpdate').toggleClass('awake');
+						$('#graphName').toggleClass('awake').html(response.graphName);
+						$('#editGraphName').toggleClass('awake');
+					}
+				);
+			});
+
+			// Forward in time
+			$('#forward').on('click', function() {
+				var option = $('#graph-time-options > .btn.active').attr('id');
+				console.log('before: ', date);
+				forwardDate('#date', date, option);
+				console.log('after: ', date);
+				Graph('#graph-container', [getDataset(set, date, option)], option);
+			});
+
+			// Backward in time
+			$('#backward').on('click', function() {
+				var option = $('#graph-time-options > .btn.active').attr('id');
+				console.log('before: ', date);
+				backwardDate('#date', date, option);
+				console.log('after: ', date);
+				Graph('#graph-container', [getDataset(set, date, option)], option);
+			});
+
+			// Time options
+			$('#graph-time-options > .btn').on('click', function() {
+				var id = $(this).attr('id');
+				formatDate('#date', date, id);
+				var option = $(this).attr('id');
+				Graph('#graph-container', [getDataset(set, date, option)], option);
+				$('#graph-time-options > .btn').removeClass('active');
+				$(this).addClass('active');
+			});
+		});
+
