@@ -90,7 +90,11 @@ block content
 				console.log('before: ', date);
 				forwardDate('#date', date, option);
 				console.log('after: ', date);
-				Graph('#graph-container', [getDataset(set, date, option)], option);
+
+				var newSets = sets.map(function(dataset) {
+					return getDataset(dataset, date, option);
+				});
+				Graph('#graph-container', newSets, option);
 			});
 
 			// Backward in time
@@ -99,7 +103,11 @@ block content
 				console.log('before: ', date);
 				backwardDate('#date', date, option);
 				console.log('after: ', date);
-				Graph('#graph-container', [getDataset(set, date, option)], option);
+
+				var newSets = sets.map(function(dataset) {
+					return getDataset(dataset, date, option);
+				});
+				Graph('#graph-container', newSets, option);
 			});
 
 			// Time options
@@ -107,7 +115,11 @@ block content
 				var id = $(this).attr('id');
 				formatDate('#date', date, id);
 				var option = $(this).attr('id');
-				Graph('#graph-container', [getDataset(set, date, option)], option);
+
+				var newSets = sets.map(function(dataset) {
+					return getDataset(dataset, date, option);
+				});
+				Graph('#graph-container', newSets, option);
 				$('#graph-time-options > .btn').removeClass('active');
 				$(this).addClass('active');
 			});
