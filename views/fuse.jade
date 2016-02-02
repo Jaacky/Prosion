@@ -11,6 +11,7 @@ block content
 			form#fuseForm(action='/graph/fuse', method='post')
 				.col-sm-12
 					input.form-control(name='name', placeholder='Fusion Name')
+					input(name='numGraphs' id='numGraphs' value='2' hidden)
 				.col-sm-6#own-graphs
 					h2 Your graphs
 					input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' value='56a5288d827d9f871440be22')
