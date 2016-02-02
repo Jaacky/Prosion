@@ -34,50 +34,50 @@ block content
 		var fusion = !{fusion}
 		console.log(fusion);
 		console.log(fusion.graphs[0].graph);
-		var graphs = fusion.graphs;
-		var requests = Array();
-		var names = [];
-		for (var i=0; i<graphs.length; i++) {
-			requests.push($.post('/graph/get/' + graphs[i].graph));
-		}
+		//- var graphs = fusion.graphs;
+		var graphs = !{graphs}
+		console.log("WOOO", graphs);
+		//- var requests = Array();
+		//- var names = [];
+		//- for (var i=0; i<graphs.length; i++) {
+		//- 	requests.push($.post('/graph/get/' + graphs[i].graph));
+		//- }
 		
-		var sets = [];
+		//- var lockedSet = {lock: false, sets: []};
+
 		var date = moment();
 		var option = $('#graph-time-options > .btn.active').attr('id');
 		formatDate('#date', date, 'month');
 
-		var defer = $.when.apply($, requests);
-		defer.done(function() {
-			var monthSets = [];
-			$.each(arguments, function(index, responseData) {
-				console.log(responseData);
-				var graph = responseData[0];
-				var dataset = new Dataset(graph.data);
-				sets.push(dataset);
-				monthSets.push(dataset.getMonthSet(date, true));
-				names.push(graph.name);
-			});
-			Graph('#graph-container', monthSets, option);
-			console.log(names);
-			$('#graphNames').html(names.join(', '));
-		});
-		
-		//- $.ajax({
-		//- 	url: '/graph/get/' + fusion.graphs[0].graph,
-		//- 	method: 'post',
-		//- 	data: 'json',
-		//- 	success: function(data) {
-		//- 		console.log(data);
-		//- 	},
-		//- 	error: function(err) {
-		//- 		console.log(err);
-		//- 	}
+		//- var defer = $.when.apply($, requests);
+		//- defer.done(function() {
+		//- 	var monthSets = [];
+		//- 	var sets = [];
+		//- 	$.each(arguments, function(index, responseData) {
+		//- 		console.log(responseData);
+		//- 		var graph = responseData[0];
+		//- 		var dataset = new Dataset(graph.data);
+		//- 		sets.push(dataset);
+		//- 		monthSets.push(dataset.getMonthSet(date, true));
+		//- 		names.push(graph.name);
+		//- 	});
+		//- 	lockedSet.sets = sets;
+		//- 	lockedSet.lock = true;
+		//- 	console.log("inside: ", lockedSet);
+		//- 	Graph('#graph-container', monthSets, option);
+		//- 	console.log(names);
+		//- 	$('#graphNames').html(names.join(', '));
 		//- });
-		//- var set = new Dataset(graph.data);
-		//- var date = moment();
-		//- var option = $('#graph-time-options > .btn.active').attr('id');
-		//- formatDate('#date', date, 'month');
-		//- Graph('#graph-container', [set.getMonthSet(date, true)], option);
+		var sets = [], monthSets = [], names = [];
+		for (var i=0; i<graphs.length; i++) {
+			var dataset = new Dataset(graphs[i].data);
+			sets.push(dataset);
+			monthSets.push(dataset.getMonthSet(date, true));
+			names.push(graphs[i].name);
+		}
+
+		Graph('#graph-container', monthSets, option);
+		$('#graphNames').html(names.join(', '));
 
 	script(type='text/javascript').
 		/* Document ready */

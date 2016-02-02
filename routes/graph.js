@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var flash = require('connect-flash');
+var async = require('async');
 var User = require('../models/User.js');
 var Graph = require('../models/Graph.js');
 var Fusion = require('../models/Fusion.js');
@@ -42,6 +43,7 @@ router.post('/fuse', function(req, res) {
 	res.redirect('/dashboard');
 });
 
+/* DON'T NEED THIS */
 router.post('/get/:id', function(req, res) {
 	Graph.findOne({ _id: req.params.id}, function(err, graph) {
 		if (err) {
@@ -52,16 +54,38 @@ router.post('/get/:id', function(req, res) {
 	});
 });
 
+function createFindGraphFunction(id) {
+	return function(callback) {
+		Graph.findOne({ _id: id }, function(err, graph) {
+			if (err) { callback(err); }
+			else {
+				console.log(id);
+				callback(null, graph);
+			}
+		});
+	};
+}
+
 router.get('/:id', function(req, res) {
 	Graph.findOne({ _id: req.params.id }, function(err, graph) {
 		if (err) {
 			console.log(err);
 		} else {
-			if (graph == undefined) {
+			if (graph == undefined) { // Fusion
 				Fusion.findOne({_id: req.params.id}, function(err, fusion) {
-					res.render('fusion', { fusion: JSON.stringify(fusion), fusionName: fusion.name, fusionId: req.params.id });
+					var findGraphFunctions = [];
+					for (var i=0; i<fusion.graphs.length; i++) {
+						var findFunc = createFindGraphFunction(fusion.graphs[i].graph);
+						findGraphFunctions.push(findFunc);
+					}
+					async.series(findGraphFunctions, function(err, graphs){
+						if (err) console.log(err);
+						else {
+							res.render('fusion', { fusion: JSON.stringify(fusion), fusionName: fusion.name, fusionId: req.params.id, graphs: JSON.stringify(graphs) });
+						}
+					});
 				});
-			} else {
+			} else { // Individual Graph
 				res.render('graph', { graph: JSON.stringify(graph), graphName: graph.name, graphId: req.params.id });
 			}
 		}
