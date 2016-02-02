@@ -1,5 +1,6 @@
-function Dataset(data) {
+function Dataset(data, colour) {
 	this.data = data;
+	this.colour = colour;
 }
 
 function loop(condition, data, conversion) {

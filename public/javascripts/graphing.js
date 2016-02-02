@@ -72,11 +72,14 @@ var DAYOFWEEK = {
 	7 : "Sat"
 };
 
-function plotPoints(svg, scales, dataset) {
+function plotPoints(svg, scales, dataset, colour) {
+	// var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+	// console.log(randomColor);
 	svg.selectAll('circle')
 	.data(dataset)
 	.enter()
 	.append('circle')
+	.attr('fill', colour)
 	.attr('cx', function(d) {
 		return scales.x(d[0]);
 	})
@@ -90,7 +93,7 @@ function weekAxis(d) {
 	return DAYOFWEEK[d];
 }
 
-function Graph(container, datasets, option) {
+function Graph(container, datasets, option, colourSet) {
 	var completeSet = [];
 	for (var i=0; i<datasets.length; i++) {
 		completeSet = completeSet.concat(datasets[i]);
@@ -131,7 +134,7 @@ function Graph(container, datasets, option) {
 				.attr('height', height);
 
 	for (var i=0; i<datasets.length; i++) {
-		plotPoints(svg, { 'x' : xScale, 'y' : yScale }, datasets[i]);
+		plotPoints(svg, { 'x' : xScale, 'y' : yScale }, datasets[i], colourSet[i]);
 	}
 
 	svg.append('g')

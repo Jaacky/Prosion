@@ -38,7 +38,7 @@ block content
 		formatDate('#date', date, 'month');
 		var sets = [], names = [];
 		for (var i=0; i<graphs.length; i++) {
-			var dataset = new Dataset(graphs[i].data);
+			var dataset = new Dataset(graphs[i].data, graphs[i].colour);
 			sets.push(dataset);
 			names.push(graphs[i].name);
 		}
@@ -46,7 +46,11 @@ block content
 			return dataset.getMonthSet(date, true);
 		});
 
-		Graph('#graph-container', monthSets, option);
+		colourSet = sets.map(function(dataset) {
+			return dataset.colour;
+		});
+
+		Graph('#graph-container', monthSets, option, colourSet);
 		$('#graphNames').html(names.join(', '));
 
 	script(type='text/javascript').
@@ -84,6 +88,8 @@ block content
 				);
 			});
 
+			// Update graph colour
+
 			// Forward in time
 			$('#forward').on('click', function() {
 				var option = $('#graph-time-options > .btn.active').attr('id');
@@ -94,7 +100,7 @@ block content
 				var newSets = sets.map(function(dataset) {
 					return getDataset(dataset, date, option);
 				});
-				Graph('#graph-container', newSets, option);
+				Graph('#graph-container', newSets, option, colourSet);
 			});
 
 			// Backward in time
@@ -107,7 +113,7 @@ block content
 				var newSets = sets.map(function(dataset) {
 					return getDataset(dataset, date, option);
 				});
-				Graph('#graph-container', newSets, option);
+				Graph('#graph-container', newSets, option, colourSet);
 			});
 
 			// Time options
@@ -119,7 +125,7 @@ block content
 				var newSets = sets.map(function(dataset) {
 					return getDataset(dataset, date, option);
 				});
-				Graph('#graph-container', newSets, option);
+				Graph('#graph-container', newSets, option, colourSet);
 				$('#graph-time-options > .btn').removeClass('active');
 				$(this).addClass('active');
 			});
