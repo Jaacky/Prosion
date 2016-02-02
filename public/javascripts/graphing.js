@@ -27,7 +27,7 @@ function formatDate(container, date, option) {
 		$(container).html(date.format('MMMM YYYY'));
 		return date;
 	} else if (OPTIONS[option] == 'week') {
-		$(container).html(date.format('wo') + ' week of ' + date.format('YYYY'));
+		$(container).html(date.format('wo') + " week of " + date.format('YYYY') + "<br><span id='weekSubheader'>Week of " + date.format('MMM') + ' ' + date.startOf('isoWeek').format('Do') + "</span>");
 		return date;
 	} else { // not one of the options
 		return date;

@@ -186,13 +186,20 @@ GRAPH
 
 .date > * {
 	display: inline-block;
+	vertical-align: middle;
+}
+
+.date #weekSubheader {
+	font-size: 18px;
 }
 
 .date #backward {
+	margin-top: 10px;
 	margin-right: 15px;
 }
 
 .date #forward {
+	margin-top: 10px;
 	margin-left: 15px;
 }
 
