@@ -54,6 +54,70 @@ router.post('/get/:id', function(req, res) {
 	});
 });
 
+router.post('/input', function(req, res) {
+	Graph.findOne({ _id: req.body.id }, function(err, graph) {
+		console.log("error: " + err);
+		console.log(graph);
+		var dataPoint = [
+			parseInt(moment(req.body.date, 'ddd MMM D, YYYY').format('x')),
+			parseInt(req.body.value)
+		];
+		console.log(dataPoint);
+		graph.data.push(dataPoint);
+		console.log(graph.data);
+		graph.save(function(err, graph) {
+			if (err) {
+				console.log("save error: " + err);
+			} else {
+				console.log("after save graph: ", graph);
+				res.redirect('/graph/' + req.body.id);
+			}
+		});
+	});
+});
+
+router.post('/updateGraphName', function(req, res) {
+	Graph.findOne({ _id : req.body.id }, function(err, graph) {
+		if (err) console.log(err);
+		else {
+			graph.name = req.body.graphName;
+			graph.save(function(err, graph) {
+				if (err) {
+					console.log("save error: " + err);
+				} else {
+					console.log("Updated graph name");
+					var response = {
+					    status  : 200,
+					    success : 'Updated Successfully',
+					    graphName : req.body.graphName
+					};
+					res.json({"graphName" : req.body.graphName});
+				}
+			});
+		}
+	});
+});
+
+router.post('/updateGraphColour', function(req, res) {
+	Graph.findOne({ _id : req.body.id }, function(err, graph) {
+		if (err) console.log(err);
+		else {
+			graph.colour = req.body.colour;
+			graph.save(function(err, graph) {
+				if (err) console.log("save error: " + err);
+				else {
+					console.log("Updated graph colour");
+					var response = {
+						status: 200,
+						success: 'Updated successfully.',
+					};
+					res.json(response);
+				}
+			});
+		}
+	});
+});
+
 function createFindGraphFunction(id) {
 	return function(callback) {
 		Graph.findOne({ _id: id }, function(err, graph) {
@@ -88,50 +152,6 @@ router.get('/:id', function(req, res) {
 			} else { // Individual Graph
 				res.render('graph', { graph: JSON.stringify(graph), graphName: graph.name, graphId: req.params.id });
 			}
-		}
-	});
-});
-
-router.post('/input', function(req, res) {
-	Graph.findOne({ _id: req.body.id }, function(err, graph) {
-		console.log("error: " + err);
-		console.log(graph);
-		var dataPoint = [
-			parseInt(moment(req.body.date, 'ddd MMM D, YYYY').format('x')),
-			parseInt(req.body.value)
-		];
-		console.log(dataPoint);
-		graph.data.push(dataPoint);
-		console.log(graph.data);
-		graph.save(function(err, graph) {
-			if (err) {
-				console.log("save error: " + err);
-			} else {
-				console.log("after save graph: ", graph);
-				res.redirect('/graph/' + req.body.id);
-			}
-		});
-	});
-});
-
-router.post('/updateGraphName', function(req, res) {
-	Graph.findOne({ _id : req.body.id }, function(err, graph) {
-		if (err) console.log(err);
-		else {
-			graph.name = req.body.graphName;
-			graph.save(function(err, graph) {
-				if (err) {
-					console.log("save error: " + err);
-				} else {
-					console.log("Updated graph name");
-						var response = {
-						    status  : 200,
-						    success : 'Updated Successfully',
-						    graphName : req.body.graphName
-						}
-					res.json({"graphName" : req.body.graphName});
-				}
-			});
 		}
 	});
 });

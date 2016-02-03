@@ -16,13 +16,16 @@ block content
 				button.btn.btn-default.graphNameOption.awake#editGraphName(type="button" aria-label="Left Align")
 					span.glyphicon.glyphicon-pencil(aria-hidden="true")
 		.row
-			.col-sm-12
+			.col-sm-6
 				h3 New point:
 				form(action='/graph/input', method='post')#graphInputForm
 					input(type='text', id='datepicker', name='date' required)
 					input(type='number', id='value', name='value', placeholder='Value' required)
 					input(type='string', id='id', name='id' value=graphId hidden required)
 					button.btn.btn-default(type='submit') Add
+			.col-sm-6
+				input(type='text' id='spectrum')
+				button.btn.btn-default#changeColour Save colour
 
 		.row.graph-container
 			.col-md-12.options-group#graph-time-options
@@ -56,69 +59,18 @@ block content
 		var date = moment();
 		var option = $('#graph-time-options > .btn.active').attr('id');
 		formatDate('#date', date, 'month');
-		Graph('#graph-container', [set.getMonthSet(date, true)], option, [set.colour]);
+		var colour = graph.colour;
+		Graph('#graph-container', [set.getMonthSet(date, true)], option, [colour]);
 
-	script(type='text/javascript').
-		/* Document ready */
-		$(document).ready(function() {
-			// Edit graph name
-			$('#editGraphName').on('click', function() {
-				$('#graphName').toggleClass('awake');
-				$('#editGraphName').toggleClass('awake');
-				$('#graphNameInput').toggleClass('awake').select();
-				$('#graphNameBack').toggleClass('awake');
-				$('#graphNameUpdate').toggleClass('awake');
-			});
-
-			$('#graphNameBack').on('click', function() {
-				$('#graphNameInput').toggleClass('awake');
-				$('#graphNameBack').toggleClass('awake');
-				$('#graphNameUpdate').toggleClass('awake');
-				$('#graphName').toggleClass('awake');
-				$('#editGraphName').toggleClass('awake');
-			});			
-
-			// Update graph name
-			$('#graphNameUpdate').on('click', function() {
-				$.post('/graph/updateGraphName',
-					{ graphName : $('#graphNameInput').val(),
-					  id : $('#id').val() },
-					function(response) {
-						$('#graphNameInput').toggleClass('awake');
-						$('#graphNameBack').toggleClass('awake');
-						$('#graphNameUpdate').toggleClass('awake');
-						$('#graphName').toggleClass('awake').html(response.graphName);
-						$('#editGraphName').toggleClass('awake');
-					}
-				);
-			});
-
-			// Forward in time
-			$('#forward').on('click', function() {
-				var option = $('#graph-time-options > .btn.active').attr('id');
-				console.log('before: ', date);
-				forwardDate('#date', date, option);
-				console.log('after: ', date);
-				Graph('#graph-container', [getDataset(set, date, option)], option, [set.colour]);
-			});
-
-			// Backward in time
-			$('#backward').on('click', function() {
-				var option = $('#graph-time-options > .btn.active').attr('id');
-				console.log('before: ', date);
-				backwardDate('#date', date, option);
-				console.log('after: ', date);
-				Graph('#graph-container', [getDataset(set, date, option)], option, [set.colour]);
-			});
-
-			// Time options
-			$('#graph-time-options > .btn').on('click', function() {
-				var id = $(this).attr('id');
-				formatDate('#date', date, id);
-				var option = $(this).attr('id');
-				Graph('#graph-container', [getDataset(set, date, option)], option, [set.colour]);
-				$('#graph-time-options > .btn').removeClass('active');
-				$(this).addClass('active');
-			});
+		$('#spectrum').attr('value', colour);
+		/* Initializing spectrum */
+		$('#spectrum').spectrum({
+			change: function(tinyColour) {
+				colour = tinyColour.toHexString();
+				console.log(colour);
+				option = $('#graph-time-options > .btn.active').attr('id');
+				Graph('#graph-container', [getDataset(set, date, option)], option, [colour]);
+			}
 		});
 
+	script(src='../javascripts/graph.js')

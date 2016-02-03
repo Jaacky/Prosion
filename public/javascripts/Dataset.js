@@ -18,6 +18,10 @@ function loop(condition, data, conversion) {
 	return dataset;
 }
 
+Dataset.prototype.getColour = function() {
+	return this.colour;
+}
+
 /*
 * Return dataset of the year
 */

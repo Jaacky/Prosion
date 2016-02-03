@@ -86,7 +86,7 @@ function plotPoints(svg, scales, dataset, colour) {
 	.attr('cy', function(d) {
 		return scales.y(d[1]);
 	})
-	.attr('r', 3);
+	.attr('r', 4);
 }
 
 function weekAxis(d) {
