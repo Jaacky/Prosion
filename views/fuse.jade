@@ -15,11 +15,18 @@ block content
 				.col-sm-6#own-graphs
 					h2 Your graphs
 					input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' value='56a5288d827d9f871440be22')
+					//- input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' list='lang' onkeyup='populateDropdownOwn(this)')
 					button.btn.btn-default.btn-add-graph + Add another graph
 				.col-sm-6#other-graphs
 					h2 Your friends' graphs
 					input.form-control.graph-input(name='graph-id2', placeholder='Graph 2' value='56a5288d827d9f871440be22')
 					button.btn.btn-default.btn-add-graph + Add another graph
+			datalist#myGraphs
+			//- datalist#lang
+			//- 	option(value='HTML')
+			//- 	option(value='CSS')
+			//- 	option(value='JAVA')
+			//- 	option(value='C')
 				//- .col-sm-6
 				//- 	.input-group
 				//- 		input.form-control(aria-label="...")

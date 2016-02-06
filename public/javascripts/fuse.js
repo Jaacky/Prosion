@@ -1,5 +1,24 @@
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
+
 function populateDropdownOwn(input) {
 	console.log(input.value);
+	var myGraphs = $('#myGraphs');
+	myGraphs.empty();
+	$.post("/graph/fuse/findOwn/" + input.value, function(data) {
+		console.log("recevied from post:", data);
+		for (var i=0; i<data.length; i++) {
+			var option = document.createElement('option');
+			option.value = data[i].name;
+			option.setAttribute('id', data[i]._id);
+			$('#myGraphs').append(option);
+		}
+	});
 }
 
 $('.btn-add-graph').on('click', function(e) {
@@ -13,7 +32,7 @@ $('.btn-add-graph').on('click', function(e) {
 	graph_input.setAttribute('name', 'graph-id' + num);
 	graph_input.setAttribute('placeholder', 'Graph ' + num);
 	graph_input.setAttribute('list', 'myGraphs');
-	graph_input.setAttribute('onkeyup', 'populateDropdownOwn(this)');
+	graph_input.setAttribute('onkeyup', 'delay(populateDropdownOwn(this), 500)');
 
 	var parent = $(this).parent();
 	if (parent.attr('id') == 'own-graphs') {
