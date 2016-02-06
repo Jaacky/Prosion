@@ -72,20 +72,22 @@ var DAYOFWEEK = {
 	7 : "Sat"
 };
 
-function plotPoints(svg, scales, dataset, colour) {
-	// var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
-	// console.log(randomColor);
-	svg.selectAll('circle')
+function plotPoints(svg, index, scales, dataset, colour) {
+	console.log("inside plot points", dataset);
+	svg.selectAll("circle" + index)
 	.data(dataset)
 	.enter()
 	.append('circle')
-	.attr('fill', colour)
-	.attr('cx', function(d) {
+	.attr('cx', function(d, i) {
+		console.log(i);
+		console.log(scales.x(d[0]));
 		return scales.x(d[0]);
 	})
 	.attr('cy', function(d) {
+		console.log(scales.y(d[1]))
 		return scales.y(d[1]);
 	})
+	.attr('fill', colour)
 	.attr('r', 4);
 }
 
@@ -134,7 +136,8 @@ function Graph(container, datasets, option, colourSet) {
 				.attr('height', height);
 
 	for (var i=0; i<datasets.length; i++) {
-		plotPoints(svg, { 'x' : xScale, 'y' : yScale }, datasets[i], colourSet[i]);
+		console.log("plot points called", datasets[i]);
+		plotPoints(svg, i, { 'x' : xScale, 'y' : yScale }, datasets[i], colourSet[i]);
 	}
 
 	svg.append('g')
