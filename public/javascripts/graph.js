@@ -10,7 +10,7 @@ $(document).ready(function() {
 			},
 			function(response) {
 				console.log("hello", response);
-				$('<h2>Saved!</h2>').insertAfter('#changeColour');
+				$('<h2 id="savedMessage">Saved!</h2>').insertAfter('#changeColour');
 				// $('#changeColour').after()
 			}
 		)

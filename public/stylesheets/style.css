@@ -226,6 +226,10 @@ GRAPH
 	border-bottom-left-radius: 0;
 }
 
+#savedMessage {
+	display: inline-block;
+}
+
 .bar {
 	display: inline-block;
 	width: 20px;
