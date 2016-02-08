@@ -2,26 +2,34 @@ extends layout
 
 block content
 	script(src='../javascripts/bootstrap.min.js')
+	script.
+		function hellogoodbye() {
+			console.log("cmon");
+		}
 	.container-fluid
 		.row
 			.col-sm-12
 				h1 Fusion baby
 
 		.row
-			form#fuseForm(action='/graph/fuse', method='post')
+			//- form#fuseForm(action='/graph/fuse', method='post')
+			#fuseForm
 				.col-sm-12
 					input.form-control(name='name', placeholder='Fusion Name')
-					input(name='numGraphs' id='numGraphs' value='2' hidden)
+					input(name='numGraphs' id='numGraphs' value='0' hidden)
 				.col-sm-6#own-graphs
 					h2 Your graphs
-					input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' value='56a5288d827d9f871440be22')
+					input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' value='Boom' list='datalist-1' onkeyup='delay(populateDropdownOwn(this, "#datalist-1"), 500)')
+					datalist#datalist-1
 					//- input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' list='lang' onkeyup='populateDropdownOwn(this)')
 					button.btn.btn-default.btn-add-graph + Add another graph
 				.col-sm-6#other-graphs
 					h2 Your friends' graphs
-					input.form-control.graph-input(name='graph-id2', placeholder='Graph 2' value='56a5288d827d9f871440be22')
+					input.form-control.graph-input(name='graph-id2' placeholder='Graph 1' value='Baby' list='datalist-2' onkeyup='delay(populateDropdownOwn(this, "#datalist-2"), 500)')
+					datalist#datalist-2
 					button.btn.btn-default.btn-add-graph + Add another graph
-			datalist#myGraphs
+				.col-sm-12
+					button.btn.btn-default#fuseGraphs(type='submit') Fuse plz
 			//- datalist#lang
 			//- 	option(value='HTML')
 			//- 	option(value='CSS')
@@ -43,6 +51,4 @@ block content
 				//- 				li.divider(role='separator')
 				//- 				li
 				//- 					a(href='#') Separated
-				.col-sm-12
-					button.btn.btn-default(type='submit') Fuse plz
 	script(src='../javascripts/fuse.js')
