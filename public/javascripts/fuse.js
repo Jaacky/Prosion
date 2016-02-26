@@ -61,17 +61,25 @@ $('.btn-add-graph').on('click', function(e) {
 });
 
 function getDatalistOption(datalistID, value) {
-	var option = $(datalistID).find('option[value="' + value + '"]');
+	var option = $(datalistID).find("option[value='" + value + "']");
+	console.log(option);
 	var id = option.attr('id');
 	console.log(id);
 	return id;
 }
 
+
+//OPTION ID NOT FOUND
 $('#fuseGraphs').on('click', function() {
 	var graphInputs = {};
 	$('#fuseForm .graph-input').each(function(i, element) {
 		console.log(element.name);
 		console.log(element.value);
-		graphInputs[element.name] = getDatalistOption('#myGraphs', element.value);
-	});
+		var graphId = element.name;
+		var datalist = "#datalist-" + graphId.charAt(graphId.length - 1);
+		console.log(datalist);
+		graphInputs[element.name] = getDatalistOption(datalist, element.value);
+		// graphInputs[element.name] = element.value;
+	})
+	console.log(graphInputs);
 });
