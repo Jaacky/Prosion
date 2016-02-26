@@ -62,24 +62,23 @@ $('.btn-add-graph').on('click', function(e) {
 
 function getDatalistOption(datalistID, value) {
 	var option = $(datalistID).find("option[value='" + value + "']");
-	console.log(option);
+	// console.log(option);
 	var id = option.attr('id');
-	console.log(id);
+	// console.log(id);
 	return id;
 }
 
 
 //OPTION ID NOT FOUND
 $('#fuseGraphs').on('click', function() {
-	var graphInputs = {};
+	var formData = {};
 	$('#fuseForm .graph-input').each(function(i, element) {
-		console.log(element.name);
-		console.log(element.value);
 		var graphId = element.name;
 		var datalist = "#datalist-" + graphId.charAt(graphId.length - 1);
-		console.log(datalist);
-		graphInputs[element.name] = getDatalistOption(datalist, element.value);
-		// graphInputs[element.name] = element.value;
-	})
-	console.log(graphInputs);
+		formData[element.name] = getDatalistOption(datalist, element.value);
+	});
+	formData['fusionName'] = $('#fusionName').val();
+	formData['numGraphs'] = $('#numGraphs').val();
+	console.log(formData);
+	post('/graph/fuse', formData);
 });

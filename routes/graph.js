@@ -22,7 +22,7 @@ router.get('/fuse', function(req, res) {
 });
 
 router.post('/fuse', function(req, res) {
-	console.log(req.body);
+	console.log("body: ", req.body);
 	var graphs = [];
 	var numGraphs = req.body.numGraphs;
 	for (var i=1; i<=numGraphs; i++) {
@@ -32,7 +32,7 @@ router.post('/fuse', function(req, res) {
 	console.log(graphs);
 	var fusion = new Fusion({
 		owners : [req.user._id],
-		name : req.body.name,
+		name : req.body.fusionName,
 		graphs : graphs
 	});
 

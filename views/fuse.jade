@@ -15,17 +15,17 @@ block content
 			//- form#fuseForm(action='/graph/fuse', method='post')
 			#fuseForm
 				.col-sm-12
-					input.form-control(name='name', placeholder='Fusion Name')
-					input(name='numGraphs' id='numGraphs' value='0' hidden)
+					input.form-control(name='fusionName', id = 'fusionName' placeholder='Fusion Name')
+					input(name='numGraphs' id='numGraphs' value='2' hidden)
 				.col-sm-6#own-graphs
 					h2 Your graphs
-					input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' value='Boom' list='datalist-1' onkeyup='delay(populateDropdownOwn(this, "#datalist-1"), 500)')
+					input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' list='datalist-1' onkeyup='delay(populateDropdownOwn(this, "#datalist-1"), 500)')
 					datalist#datalist-1
 					//- input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' list='lang' onkeyup='populateDropdownOwn(this)')
 					button.btn.btn-default.btn-add-graph + Add another graph
 				.col-sm-6#other-graphs
 					h2 Your friends' graphs
-					input.form-control.graph-input(name='graph-id2' placeholder='Graph 1' value='Baby' list='datalist-2' onkeyup='delay(populateDropdownOwn(this, "#datalist-2"), 500)')
+					input.form-control.graph-input(name='graph-id2' placeholder='Graph 2' list='datalist-2' onkeyup='delay(populateDropdownOwn(this, "#datalist-2"), 500)')
 					datalist#datalist-2
 					button.btn.btn-default.btn-add-graph + Add another graph
 				.col-sm-12
