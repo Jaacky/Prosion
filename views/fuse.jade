@@ -12,7 +12,6 @@ block content
 				h1 Fusion baby
 
 		.row
-			//- form#fuseForm(action='/graph/fuse', method='post')
 			#fuseForm
 				.col-sm-12
 					input.form-control(name='fusionName', id = 'fusionName' placeholder='Fusion Name')
@@ -21,7 +20,6 @@ block content
 					h2 Your graphs
 					input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' list='datalist-1' onkeyup='delay(populateDropdownOwn(this, "#datalist-1"), 500)')
 					datalist#datalist-1
-					//- input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' list='lang' onkeyup='populateDropdownOwn(this)')
 					button.btn.btn-default.btn-add-graph + Add another graph
 				.col-sm-6#other-graphs
 					h2 Your friends' graphs
@@ -30,25 +28,4 @@ block content
 					button.btn.btn-default.btn-add-graph + Add another graph
 				.col-sm-12
 					button.btn.btn-default#fuseGraphs(type='submit') Fuse plz
-			//- datalist#lang
-			//- 	option(value='HTML')
-			//- 	option(value='CSS')
-			//- 	option(value='JAVA')
-			//- 	option(value='C')
-				//- .col-sm-6
-				//- 	.input-group
-				//- 		input.form-control(aria-label="...")
-				//- 		.input-group-btn
-				//- 			button.btn.btn-default.dropdown-toggle(data-toggle='dropdown' aria-haspopup="true" aria-expanded="false")
-				//- 				span.caret
-				//- 			ul.dropdown-menu.dropdown-menu-right
-				//- 				li
-				//- 					a(href='#') Action
-				//- 				li
-				//- 					a(href='#') Another
-				//- 				li
-				//- 					a(href='#') Something else
-				//- 				li.divider(role='separator')
-				//- 				li
-				//- 					a(href='#') Separated
 	script(src='../javascripts/fuse.js')

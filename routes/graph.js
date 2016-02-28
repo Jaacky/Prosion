@@ -43,17 +43,6 @@ router.post('/fuse', function(req, res) {
 	res.redirect('/dashboard');
 });
 
-router.post('/fuse/findOwn/:name', function(req, res) {
-	var regExp = new RegExp("^" + req.params.name, "i");
-	Graph.find({ name: regExp, owner: req.user._id }, function(err, graphs) {
-		if (err) console.log(err);
-		else {
-			console.log("found:", graphs);
-			res.json(graphs);
-		}
-	});
-});
-
 /* DON'T NEED THIS */
 router.post('/get/:id', function(req, res) {
 	Graph.findOne({ _id: req.params.id}, function(err, graph) {

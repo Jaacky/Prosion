@@ -16,7 +16,7 @@ function populateDropdownOwn(input, datalist) {
 	console.log(input.value);
 	var dList = $(datalist);
 	dList.empty();
-	$.post("/graph/fuse/findOwn/" + input.value, function(data) {
+	$.post("/find/self/" + input.value, function(data) {
 		console.log("recevied from post:", data);
 		for (var i=0; i<data.length; i++) {
 			var option = document.createElement('option');
@@ -62,23 +62,25 @@ $('.btn-add-graph').on('click', function(e) {
 
 function getDatalistOption(datalistID, value) {
 	var option = $(datalistID).find("option[value='" + value + "']");
-	// console.log(option);
 	var id = option.attr('id');
-	// console.log(id);
 	return id;
 }
 
-
-//OPTION ID NOT FOUND
 $('#fuseGraphs').on('click', function() {
 	var formData = {};
 	$('#fuseForm .graph-input').each(function(i, element) {
-		var graphId = element.name;
-		var datalist = "#datalist-" + graphId.charAt(graphId.length - 1);
-		formData[element.name] = getDatalistOption(datalist, element.value);
+		var graphInputId = element.name;
+		var datalist = "#datalist-" + graphInputId.charAt(graphInputId.length - 1);
+		var graphId = getDatalistOption(datalist, element.value);
+		if (graphId == undefined) { //  Leave out the empty or invalid/non existing 
+			return true; // break out
+		} else {
+			console.log('not undefeind mofoo');
+			formData[element.name] = getDatalistOption(datalist, element.value);
+		}
 	});
 	formData['fusionName'] = $('#fusionName').val();
 	formData['numGraphs'] = $('#numGraphs').val();
-	console.log(formData);
+	// console.log(formData);
 	post('/graph/fuse', formData);
 });

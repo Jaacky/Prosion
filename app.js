@@ -31,6 +31,7 @@ db.once('open', function(callback) {
 var routes = require('./routes/index');
 var profile = require('./routes/profile');
 var graph = require('./routes/graph');
+var find = require('./routes/find');
 
 var app = express();
 
@@ -62,6 +63,7 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/profile', profile);
 app.use('/graph', graph);
+app.use('/find', find);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
