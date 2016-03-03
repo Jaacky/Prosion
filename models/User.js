@@ -12,6 +12,8 @@ var userSchema = new Schema({
 	image : { type: String, default: 'images/avatar.png' },
 	superAdmin: { type: Boolean, default: false },
 	admin: { type: Boolean, default: false },
+	followers : [ { type: Schema.Types.ObjectId, ref: 'User' } ],
+	following : [ { type: Schema.Types.ObjectId, ref: 'User' } ],
 	graphs : [ { type: Schema.Types.ObjectId, ref: 'Graph' } ],
 	fusions : [ { type: Schema.Types.ObjectId, ref: 'Fusion' } ]
 });
