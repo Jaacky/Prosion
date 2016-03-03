@@ -33,6 +33,11 @@ html
 								span#userName username
 						li.user-nav
 							a(href='/logout') Logout
+					form.navbar-form.navbar-right(role="search")
+						.form-group
+							input.form-control(type="text" placeholder="Search people" list='searchFriends' onkeyup='delay(populateDropdownSearch(this, "#searchFriends"), 500)')
+						button.btn.btn-default Search
+					datalist#searchFriends
 
 		block content
 			

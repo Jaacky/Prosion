@@ -1,12 +1,3 @@
-// http://stackoverflow.com/questions/1909441/jquery-keyup-delay
-var delay = (function(){
-  var timer = 0;
-  return function(callback, ms){
-    clearTimeout (timer);
-    timer = setTimeout(callback, ms);
-  };
-})();
-
 // function hellogoodbye() {
 // 	console.log("form!");
 // 	return false;

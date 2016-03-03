@@ -16,6 +16,7 @@ router.use(function(req, res, next) {
 	}
 });
 
+// Need to refactor to /self/graphs/:name
 router.post('/self/:name', function(req, res) {
 	var regExp = new RegExp("^" + req.params.name, "i");
 	Graph.find({ name: regExp, owner: req.user._id }, function(err, graphs) {
@@ -26,5 +27,23 @@ router.post('/self/:name', function(req, res) {
 		}
 	});
 });
+
+router.post('/people/:name', function(req, res) {
+	console.log("searching", req.params.name);
+	var regExp = new RegExp("^" + req.params.name, "i");
+	// User.find({ name: reqExp }, function(err, users) {
+	// 	if (err) res.json(err);
+	// 	else {
+	// 		console.log("found", users);
+	// 		res.json(users);
+	// 	}
+	// });
+	User.find({ name: regExp }, function(err, users) {
+		if (err) console.log(err);
+		res.json(users);
+	});
+});
+
+
 
 module.exports = router;

@@ -23,6 +23,15 @@ function post(path, params, method) {
     form.submit();
 }
 
+// http://stackoverflow.com/questions/1909441/jquery-keyup-delay
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
+
 function formatUserRow(user) {
 	var email = user.email;
 	var name;
@@ -80,4 +89,36 @@ function appendGraphButtons(container, graphs) {
 		$(container).append(formatGraphButton(graphs[i]));
 	}
 }
+
+function populateDropdown(input, datalist, url) {
+	var dList = $(datalist);
+	dList.empty();
+
+	$.post(url + input.value, function(data) {
+		console.log("received from post", data);
+		for (var i=0; i<data.length; i++) {
+			var option = document.createElement('option');
+			option.value = data[i].name;
+			option.setAttribute('id', data[i]._id);
+			dList.append(option);
+		}
+	});
+}
+
+function populateDropdownSearch(input, datalist) {
+	var dList = $(datalist);
+	dList.empty();
+
+	$.post("/find/people/" + input.value, function(data) {
+		console.log("received from post", data);
+		for (var i=0; i<data.length; i++) {
+			var option = document.createElement('option');
+			option.value = data[i].name;
+			option.setAttribute('id', data[i]._id);
+			dList.append(option);
+		}
+	});
+}
+
+
 
