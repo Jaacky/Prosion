@@ -35,3 +35,17 @@ html
 							a(href='/logout') Logout
 
 		block content
+			
+	if user
+		script.
+			currentUser = !{user}
+	else
+		script.
+			currentUser = null;
+
+	script.
+		console.log(currentUser);
+		if (currentUser) {
+			userLoggedIn(currentUser);
+		}
+		
