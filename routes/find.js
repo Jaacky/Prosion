@@ -40,7 +40,9 @@ router.post('/people/:name', function(req, res) {
 	// });
 	User.find({ name: regExp }, function(err, users) {
 		if (err) console.log(err);
-		res.json(users);
+		else {
+			res.json(users);
+		}
 	});
 });
 
