@@ -38,12 +38,16 @@ textarea {
 	margin-left: 5px;
 }
 
-.nav>li.user-nav {
+.nav>li.user-nav, .navbar-form>.user-nav {
 	display: none;
 }
 
 .nav>li.user-nav.loggedIn {
 	display: block;
+}
+
+.navbar-form>.user-nav.loggedIn {
+	display: inline-block;
 }
 
 .navbar-nav>li.user-nav>a {

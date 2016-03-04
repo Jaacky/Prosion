@@ -34,9 +34,9 @@ html
 						li.user-nav
 							a(href='/logout') Logout
 					form.navbar-form.navbar-right(role="search")
-						.form-group
+						.form-group.user-nav
 							input.form-control(type="text" placeholder="Search people" list='searchFriends' onkeyup='delay(populateDropdownSearch(this, "#searchFriends"), 500)')
-						button.btn.btn-default Search
+						button.btn.btn-default.user-nav Search
 					datalist#searchFriends
 
 		block content
