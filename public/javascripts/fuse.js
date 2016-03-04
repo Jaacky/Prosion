@@ -51,12 +51,6 @@ $('.btn-add-graph').on('click', function(e) {
 
 });
 
-function getDatalistOption(datalistID, value) {
-	var option = $(datalistID).find("option[value='" + value + "']");
-	var id = option.attr('id');
-	return id;
-}
-
 $('#fuseGraphs').on('click', function() {
 	var formData = {};
 	$('#fuseForm .graph-input').each(function(i, element) {

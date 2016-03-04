@@ -90,6 +90,12 @@ function appendGraphButtons(container, graphs) {
 	}
 }
 
+function getDatalistOption(datalistID, value) {
+	var option = $(datalistID).find("option[value='" + value + "']");
+	var id = option.attr('id');
+	return id;
+}
+
 function populateDropdown(input, datalist, url) {
 	var dList = $(datalist);
 	dList.empty();
