@@ -9,7 +9,7 @@ var userSchema = new Schema({
 	dateCreated : { type: Date, required: true, default: Date.now },
 	name : { type: String },
 	description : { type: String, maxlength: 500 },
-	image : { type: String, default: 'images/avatar.png' },
+	image : { type: String, default: '../../images/avatar.png' },
 	superAdmin: { type: Boolean, default: false },
 	admin: { type: Boolean, default: false },
 	followers : [ { type: Schema.Types.ObjectId, ref: 'User' } ],
