@@ -12,6 +12,7 @@ router.use(function(req, res, next) {
 	if (!req.user) {
 		res.redirect('/login');
 	} else {
+		res.locals.user = req.user;
 		next();
 	}
 });
@@ -24,6 +25,16 @@ router.post('/self/:name', function(req, res) {
 		else {
 			console.log("found:", graphs);
 			res.json(graphs);
+		}
+	});
+});
+
+router.get('/people/:name', function(req, res) {
+	var regExp = new RegExp("^" + req.params.name, "i");
+	User.find({ name: regExp }, function(err, users) {
+		if (err) console.log(err);
+		else {
+			res.render('people');
 		}
 	});
 });

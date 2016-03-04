@@ -35,17 +35,19 @@ html
 							a(href='/logout') Logout
 					form.navbar-form.navbar-right(role="search")
 						.form-group.user-nav
-							input.form-control(type="text" placeholder="Search people" list='searchFriends' onkeyup='delay(populateDropdownSearch(this, "#searchFriends"), 500)')
-						button.btn.btn-default.user-nav Search
-					datalist#searchFriends
+							input.form-control#searchFriendsName(type="text" placeholder="Search people" list='searchFriendsList' onkeyup='delay(populateDropdownSearch(this, "#searchFriendsList"), 500)')
+						button.btn.btn-default.user-nav#searchFriends Search
+					datalist#searchFriendsList
 
 		block content
 			
-	if user
+	if locals.user
 		script.
-			currentUser = !{user}
+			console.log("inside");
+			currentUser = !{locals.user};
 	else
 		script.
+			console.log("not inside");
 			currentUser = null;
 
 	script.

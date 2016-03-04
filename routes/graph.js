@@ -12,12 +12,14 @@ router.use(function(req, res, next) {
 	if (!req.user) {
 		res.redirect('/login');
 	} else {
+		res.locals.user = req.user;
 		next();
 	}
 });
 
 router.get('/fuse', function(req, res) {
 	console.log(req.user);
+	console.log(res.locals.user);
 	res.render('fuse');
 });
 
