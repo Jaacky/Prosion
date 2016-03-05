@@ -41,7 +41,11 @@ router.get('/people/:name', function(req, res) {
 
 router.post('/people/:name', function(req, res) {
 	console.log("searching", req.params.name);
-	var regExp = new RegExp("^" + req.params.name, "i");
+	if (req.params.name != "-1") {
+		var regExp = new RegExp("^" + req.params.name, "i");
+	} else {
+		var regExp = /.*/;
+	}
 	// User.find({ name: reqExp }, function(err, users) {
 	// 	if (err) res.json(err);
 	// 	else {
