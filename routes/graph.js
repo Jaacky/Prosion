@@ -12,7 +12,7 @@ router.use(function(req, res, next) {
 	if (!req.user) {
 		res.redirect('/login');
 	} else {
-		res.locals.user = req.user;
+		res.locals.user = JSON.stringify(req.user);
 		next();
 	}
 });

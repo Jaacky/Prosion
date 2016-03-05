@@ -1,0 +1,52 @@
+extends layout
+
+block content
+	script.
+		var found = [];
+
+	if people
+		script.
+			found = !{people}
+ 
+	.container-fluid
+		.row
+			.col-sm-12
+				h1 Search for: #{search}
+
+		.row
+			.col-sm-12#results
+				table.table.table-hover
+
+	script.
+		function createPeopleImage(path) {
+			var div = document.createElement('div');
+			div.className += "peopleImage";
+			div.style.backgroundImage = "url('../../" + path + "')";
+			return div;
+		}
+
+		console.log(found.length);
+		var results = $(document.getElementById('results'));
+		var table;
+		if (found.length > 0) {
+			var table = document.createElement('table');
+			table.className += "table table-hover";
+			for (var i=0; i<found.length; i++) {
+				var row = table.insertRow(-1);
+				//- var pic = document.createElement('img');
+				//- pic.className += "peopleImg"
+				//- pic.setAttribute('src', found[i].image);
+
+				var pic = createPeopleImage(found[i].image);
+				var picCell = row.insertCell(-1);
+				picCell.className += "col-sm-1"
+				picCell.appendChild(pic);
+				var nameCell = row.insertCell(-1);
+				nameCell.innerHTML = found[i].name;
+			}
+		} else {
+			var table = document.createElement('h1');
+			table.innerHTML = "Sorry there's no one with this name."
+		}
+
+		results.append(table);

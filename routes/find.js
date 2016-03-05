@@ -12,7 +12,7 @@ router.use(function(req, res, next) {
 	if (!req.user) {
 		res.redirect('/login');
 	} else {
-		res.locals.user = req.user;
+		res.locals.user = JSON.stringify(req.user);
 		next();
 	}
 });
@@ -34,7 +34,7 @@ router.get('/people/:name', function(req, res) {
 	User.find({ name: regExp }, function(err, users) {
 		if (err) console.log(err);
 		else {
-			res.render('people');
+			res.render('people', { people: JSON.stringify(users), search: req.params.name });
 		}
 	});
 });

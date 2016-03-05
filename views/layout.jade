@@ -41,17 +41,23 @@ html
 
 		block content
 			
-	if locals.user
+	script.
+		var currentUser = null;
+
+	if user != null
 		script.
 			console.log("inside");
-			currentUser = !{locals.user};
+			currentUser = !{user};
 	else
 		script.
-			console.log("not inside");
 			currentUser = null;
+	//- else
+	//- 	script.
+	//- 		console.log("not inside");
+	//- 		currentUser = null;
 
 	script.
-		console.log(currentUser);
+		//- console.log(currentUser);
 		if (currentUser) {
 			userLoggedIn(currentUser);
 		}
