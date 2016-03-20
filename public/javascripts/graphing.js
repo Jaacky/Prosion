@@ -141,9 +141,9 @@ function Graph(container, datasets, option, colourSet) {
 	}
 
 	svg.append('g')
-			.attr('class', 'axis')
-			.attr('transform', 'translate(0,' + (height - yPadding) + ')')
-			.call(xAxis);
+		.attr('class', 'axis')
+		.attr('transform', 'translate(0,' + (height - yPadding) + ')')
+		.call(xAxis);
 
 	svg.append('g')
 		.attr('class', 'axis')
@@ -151,12 +151,14 @@ function Graph(container, datasets, option, colourSet) {
 		.call(yAxis);
 
 	svg.append('text')
+		.attr('class', 'axis-text')
 		.attr('x', (width - xPadding) / 2)
 		.attr('y', height)
 		.style('text-anchor', 'middle')
 		.text('Time');
 
 	svg.append('text')
+		.attr('class', 'axis-text')
 		.attr('transform', 'rotate(-90)')
 		.attr('x', 0 - (height / 2))
 		.attr('y', xPadding / 4)
