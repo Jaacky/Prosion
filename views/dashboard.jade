@@ -1,20 +1,33 @@
 extends layout
 
 block content
-	.container-fluid.dashboard-container
+	.container-fluid.main-container.dashboard-container
+		.row.dashboard-navbar
+			.dashboard-nav.col-sm-3
+				span.glyphicon.glyphicon-plus
+				h3 New graph
+			.dashboard-nav.col-sm-3
+				span.glyphicon.glyphicon-fire
+				h3 Fuse graphs
+			.dashboard-nav.col-sm-3
+				span.glyphicon.glyphicon-stats
+				h3 Personal graphs
+			.dashboard-nav.col-sm-3
+				span.glyphicon.glyphicon-random
+				h3 Fused graphs
 		h1 Dashboard
 		.row#dashboard-menu
-			.col-sm-12
-				h2 New Graph:
+			//- .col-sm-12
+			//- 	h2 New Graph:
 			.col-sm-6
 				form#createGraphForm(action='/createGraph', method='post')
 					.input-group
 						input.form-control(type='text', id='graphName', name='graphName', placeholder='Graph Name')
 						span.input-group-btn
-							button.btn.btn-default#createGraph(type='submit') Create
+							button.btn.btn-default#createGraph(type='submit') Create new graph
 			.col-sm-6
 				a(href='/graph/fuse')
-					button.btn.btn-default Self Fuse Baby
+					button.btn.btn-default Fuse
 		.row#personal-graphs
 			.col-sm-12
 				h2 Personal Graphs

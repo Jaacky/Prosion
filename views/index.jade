@@ -1,12 +1,16 @@
 extends layout
 
 block content
-	.container-fluid.index-container
-		h1 Prosion
-		a(href='/login')
-			button Login
-		a(href='/signup')
-			button Sign up
-
+	.container-fluid.main-container.index-container
+		.header
+			.row
+				.col-sm-12
+					h1 Track progress together.
+			.row.signup
+				.col-sm-12
+					a(href='/signup')
+						button.btn Sign up
+				.col-sm-12
+					a(href='/login') Already have an account?
 	script(type='text/javascript').
 		userLoggedOut();

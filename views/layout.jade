@@ -39,11 +39,11 @@ html
 						//- .form-group.user-nav
 						//- 	input.form-control#searchFriendsName(type="text" placeholder="Search people" list='searchFriendsList' onkeyup='delay(populateDropdownSearch(this, "#searchFriendsList"), 500)')
 						//- button.btn.btn-default.user-nav#searchFriends Search
-						#searchFriendsContainer
-							select.form-control#searchFriendsName(data-placeholder="Search for someone" style="width:450px;" tabindex="2")
-								option(value="")
-								option(value="123456") 123
-								option(value="4562331") 456
+						//- #searchFriendsContainer
+						//- 	select.form-control#searchFriendsName(data-placeholder="Search for someone" style="width:450px;" tabindex="2")
+						//- 		option(value="")
+						//- 		option(value="123456") 123
+						//- 		option(value="4562331") 456
 					datalist#searchFriendsList
 
 		block content
@@ -70,7 +70,7 @@ html
 			userLoggedIn(currentUser);
 		}
 
-		populateSearchFriendsOptions("-1", '#searchFriendsName', '/find/people/');
+		//- populateSearchFriendsOptions("-1", '#searchFriendsName', '/find/people/');
 		//- $('#searchFriendsName').chosen({});
 
 		
