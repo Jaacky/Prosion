@@ -1,3 +1,3 @@
-# Prosion
+# Visualyze
 
-A visual of your progress.
+Visualize your progress.
