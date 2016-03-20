@@ -1,16 +1,31 @@
+/*
+MAIN BACKGROUND COLOR: #383840;
+MAIN TEXT COLOR: #E1E3E6;
+MAIN HOVER COLOR: #afafb2;
+SELECTED HOVER : #C0D890;
+*/
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*padding: 50px;*/
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+  font: 14px Helvetica;
+  background-color: #383840;
+}
+
+h1, h2, h3, h4 ,h5, h6, span {
+	color: #E1E3E6;
 }
 
 a {
-  color: #00B7FF;
+  color: #E1E3E6;
 }
 
+a:focus, a:hover {
+	color: #afafb2;
+}
 
 nav {
-	background-color: black;
-	color: white;
+	background-color: #383840;
+	color: #E1E3E6;
 }
 
 textarea {
@@ -38,6 +53,11 @@ textarea {
 	margin-left: 5px;
 }
 
+nav > .container-fluid {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
 .nav>li.user-nav, .navbar-form>.user-nav {
 	display: none;
 }
@@ -54,15 +74,13 @@ textarea {
 	padding-bottom: 10px;
 }
 
-.index-container, .login-container, .signup-container {
-	text-align: center;
+.main-container {
+	padding: 55px;
+	padding-top: 75px;
 }
 
-.index-container button {
-	padding: 15px;
-	color: black;
-	margin-left: 5px;
-	margin-right: 5px;
+.index-container, .login-container, .signup-container {
+	text-align: center;
 }
 
 .signup input, .login input {
@@ -128,6 +146,48 @@ textarea {
 }
 
 /*******************
+INDEX
+*******************/
+
+.index-container {
+	padding-top: 50px;
+	padding-left: 0;
+	padding-right: 0;
+	color: #E1E3E6;
+}
+
+.header {
+	height: 450px;
+	/*height: 100vh;*/
+	padding-top: 5%;
+	padding-left: 5%;
+	padding-right: 5%;
+/*	background: url('/images/road_progress.jpeg');
+	background-size: cover;*/
+}
+
+.header h1 {
+	font-size: 60px;
+	text-align: center;
+	font-weight: 300;
+}
+
+.header button {
+	padding: 10px 35px;
+	color: black;
+	margin-left: 5px;
+	margin-right: 5px;
+	border-radius: 2px;
+	background-color: #E1E3E6;
+	border: 2px solid #96868E;
+}
+
+.header .signup {
+	margin-top: 20px;
+}
+
+
+/*******************
 DASHBOARD
 *******************/
 
@@ -145,6 +205,21 @@ DASHBOARD
 	overflow: hidden;
 }
 
+.dashboard-nav {
+	border: 1px solid #E1E3E6;
+	text-align: center;
+	padding: 10px;
+	height: 100px;
+}
+
+.dashboard-nav:hover {
+	background-color: #afafb2;;
+	cursor: pointer;
+}
+
+.dashboard-nav .glyphicon {
+	font-size: 2.25em;
+}
 /******************
 GRAPH
 ******************/
@@ -262,5 +337,5 @@ PEOPLE
 	height: 50px;
 	width: 50px;
 	border-radius: 50px;
-	
+
 }
