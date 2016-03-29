@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'),
+    helmet = require('helmet'),
     session = require('express-session'),
     flash = require('connect-flash'),
     multer = require('multer'),
@@ -53,6 +54,7 @@ app.use(session({ secret: 'keyboard ninja',
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(helmet());
 
 // Make db accessible to router
 app.use(function(req, res, next) {
