@@ -35,3 +35,7 @@ node_modules
 .DS_STORE
 
 data
+
+# Config and env files
+config.js
+env.js
