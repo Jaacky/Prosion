@@ -5,9 +5,9 @@ var User = require('../models/User.js');
 var Graph = require('../models/Graph.js');
 var Fusion = require('../models/Fusion.js');
 var Analytics = require('../models/Analytics.js');
-var superAdmin = require('../models/first.js');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt');
 
 // From http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
 var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
@@ -94,34 +94,24 @@ router.post('/signup', function(req, res) {
 			if (err) console.log("err finding during signup ", err);
 			else {
 				if (!user) {
-					superAdmin.set(function() {
-						if (!superAdmin.exists()) {
-							var newUser = new User({
-								email: req.body.email,
-								password: req.body.password,
-								superAdmin: true,
-								admin: true
-							});
+
+					var newUser = new User({
+						email: req.body.email,
+						password: req.body.password
+					});
+					newUser.save(function(err, data) {
+						if (err) {
+							console.log(err);
+							console.log(data);
+							res.render('signup', {message: 'Problem signing up, please try again'});
 						} else {
-							var newUser = new User({
-								email: req.body.email,
-								password: req.body.password
+							console.log("signup successful ", data);
+							passport.authenticate('local')(req, res, function() {
+								res.redirect('/dashboard');
 							});
 						}
-
-						newUser.save(function(err, data) {
-							if (err) {
-								console.log(err);
-								console.log(data);
-								res.render('signup', {message: 'Problem signing up, please try again'});
-							} else {
-								console.log("signup successful ", data);
-								passport.authenticate('local')(req, res, function() {
-									res.redirect('/dashboard');
-								});
-							}
-						});
 					});
+
 				} else {
 					res.render('signup', {message: 'Email already in use'});
 				}
@@ -132,17 +122,10 @@ router.post('/signup', function(req, res) {
 
 router.get('/dashboard', function(req, res) {
 	if (req.user) { 
-		// User.find({}, function(err, users) {
-		// 	//res.render('dashboard', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
-		// 	res.render('dashboard', { user: JSON.stringify(req.user), users: JSON.stringify(users) }); 
-		// });
-
 		User.findOne({_id: req.user._id}, function(err, user) {
 			Graph.find({
 				_id : { $in : user.graphs}
 			}, function(err, graphs) {
-				// console.log(graphs);
-				// console.log(user);
 				Fusion.find({
 					owners : user._id
 				}, function(err, fusions) {
@@ -155,7 +138,6 @@ router.get('/dashboard', function(req, res) {
 	else {
 		res.redirect('/');
 	}
-	//res.redirect('/profile');
 });
 
 router.post('/createGraph', function(req, res) {
