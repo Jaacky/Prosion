@@ -13,10 +13,12 @@ var bodyParser = require('body-parser'),
     LocalStrategy = require('passport-local').Strategy,
     User = require('./models/User.js');
 
+var config = require('./config.js')();
+
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/test');
+mongoose.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.name);
 var db = mongoose.connection;
 
 // Running mongo mongod --dbpath ~/playground/csc309/a4/data/
@@ -47,8 +49,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'keyboard ninja',
-                          cookie: { maxAge: 120000000},
+app.use(session({ secret: config.sessionId,
+                          cookie: { maxAge: 1200000},
                           resave: true,
                           saveUninitialized: true }));
 app.use(flash());
