@@ -23,11 +23,20 @@ passport.use(new LocalStrategy({
 				return done(null, false, { message: 'Incorrect e-mail.'});
 			}
 			console.log("Password: " + user.password + " / input: " + password);
-			if (user.password != password) {
-				console.log('Incorrect password.');
-				return done(null, false, { message: 'Incorrect password.' });
-			}
-			return done(null, user);
+			// if (user.password != password) {
+			// 	console.log('Incorrect password.');
+			// 	return done(null, false, { message: 'Incorrect password.' });
+			// }
+			bcrypt.compare(password, user.password, function(err, res) {
+				if (err) console.log("Bcrypt error in hash comparision.");
+				if (res === true) {
+					return done(null, user);
+				} else {
+					console.log('Incorrect password');
+					return done(null, false, { message: 'Incorrect password.' });
+				}
+			});
+			// return done(null, user);
 		});
 	}));
 
@@ -94,24 +103,28 @@ router.post('/signup', function(req, res) {
 			if (err) console.log("err finding during signup ", err);
 			else {
 				if (!user) {
+					bcrypt.genSalt(10, function(err, salt) {
+						bcrypt.hash(req.body.password, salt, function(err, hash) {
 
-					var newUser = new User({
-						email: req.body.email,
-						password: req.body.password
-					});
-					newUser.save(function(err, data) {
-						if (err) {
-							console.log(err);
-							console.log(data);
-							res.render('signup', {message: 'Problem signing up, please try again'});
-						} else {
-							console.log("signup successful ", data);
-							passport.authenticate('local')(req, res, function() {
-								res.redirect('/dashboard');
+							var newUser = new User({
+								email: req.body.email,
+								password: hash
 							});
-						}
-					});
+							newUser.save(function(err, data) {
+								if (err) {
+									console.log(err);
+									console.log(data);
+									res.render('signup', {message: 'Problem signing up, please try again'});
+								} else {
+									console.log("signup successful ", data);
+									passport.authenticate('local')(req, res, function() {
+										res.redirect('/dashboard');
+									});
+								}
+							});
 
+						});
+					});				
 				} else {
 					res.render('signup', {message: 'Email already in use'});
 				}
