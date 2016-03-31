@@ -58,14 +58,9 @@ html
 	else
 		script.
 			currentUser = null;
-	//- else
-	//- 	script.
-	//- 		console.log("not inside");
-	//- 		currentUser = null;
 
 	script(src='/javascripts/layout.js')
 	script.
-		//- console.log(currentUser);
 		if (currentUser) {
 			userLoggedIn(currentUser);
 		}

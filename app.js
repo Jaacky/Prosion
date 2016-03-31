@@ -21,7 +21,6 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.name);
 var db = mongoose.connection;
 
-// Running mongo mongod --dbpath ~/playground/csc309/a4/data/
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function(callback) {
   console.log("~~~~~~~~~~~~~~~~~~~~~");
