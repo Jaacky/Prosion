@@ -207,6 +207,10 @@ DASHBOARD
 	overflow: hidden;
 }
 
+.dashboard-navbar {
+	margin-bottom: 25px;
+}
+
 .dashboard-nav {
 	border: 1px solid #E1E3E6;
 	text-align: center;
@@ -219,8 +223,28 @@ DASHBOARD
 	cursor: pointer;
 }
 
+.dashboard-nav.active {
+	border-bottom: 8px solid #E1E3E6;
+}
+
 .dashboard-nav .glyphicon {
 	font-size: 2.25em;
+}
+
+.dashboard-nav h3 {
+	margin-top: 10px;
+}
+
+#dashboard {
+	
+}
+
+.dashboardContainer {
+	display: none;
+}
+
+.dashboardContainer.active {
+	display: block;
 }
 /******************
 GRAPH

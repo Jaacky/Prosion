@@ -12,7 +12,7 @@ function populateSearchFriendsOptions(input, selection, url) {
 			option.setAttribute('id', data[i]._id);
 			select.append(option);
 		}
-		select.chosen();
+		// select.chosen();
 		// $('#searchFriendsContainer .chosen-search input').on('keyup', function() {
 		// 	console.log($("#searchFriendsName").chosen().val());
 		// });
