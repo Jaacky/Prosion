@@ -52,12 +52,12 @@ passport.deserializeUser(function(id, done) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	console.log('IP ADDRESS OF USER: ');
+	// console.log('IP ADDRESS OF USER: ');
 	 var ip = req.connection.remoteAddress || 
      req.socket.remoteAddress ||
      req.connection.socket.remoteAddress ||
      req.headers['x-forwarded-for'];
-     console.log(ip);
+     // console.log(ip);
 	if (req.user) {
 		res.redirect('/dashboard');
 	}
@@ -85,53 +85,53 @@ router.get('/logout', function(req, res) {
 	});
 });
 
-router.get('/signup', function(req, res, next) {
-	res.render('signup');
-});
+// router.get('/signup', function(req, res, next) {
+// 	res.render('signup');
+// });
 
-router.post('/signup', function(req, res) {
-	if (req.body.password != req.body.confirmPassword) {
-		req.flash('error', 'Password does not match');
-		res.render('signup', {message: req.flash('error')});
-	}
+// router.post('/signup', function(req, res) {
+// 	if (req.body.password != req.body.confirmPassword) {
+// 		req.flash('error', 'Password does not match');
+// 		res.render('signup', {message: req.flash('error')});
+// 	}
 
-	else if (!emailRegex.test(req.body.email)) {
-		req.flash('error', 'Not a valid E-mail.');
-		res.render('signup', {message: req.flash('error')});
-	} else {
-		User.findOne({email: req.body.email}, function(err, user) {
-			if (err) console.log("err finding during signup ", err);
-			else {
-				if (!user) {
-					bcrypt.genSalt(10, function(err, salt) {
-						bcrypt.hash(req.body.password, salt, function(err, hash) {
+// 	else if (!emailRegex.test(req.body.email)) {
+// 		req.flash('error', 'Not a valid E-mail.');
+// 		res.render('signup', {message: req.flash('error')});
+// 	} else {
+// 		User.findOne({email: req.body.email}, function(err, user) {
+// 			if (err) console.log("err finding during signup ", err);
+// 			else {
+// 				if (!user) {
+// 					bcrypt.genSalt(10, function(err, salt) {
+// 						bcrypt.hash(req.body.password, salt, function(err, hash) {
 
-							var newUser = new User({
-								email: req.body.email,
-								password: hash
-							});
-							newUser.save(function(err, data) {
-								if (err) {
-									console.log(err);
-									console.log(data);
-									res.render('signup', {message: 'Problem signing up, please try again'});
-								} else {
-									console.log("signup successful ", data);
-									passport.authenticate('local')(req, res, function() {
-										res.redirect('/dashboard');
-									});
-								}
-							});
+// 							var newUser = new User({
+// 								email: req.body.email,
+// 								password: hash
+// 							});
+// 							newUser.save(function(err, data) {
+// 								if (err) {
+// 									console.log(err);
+// 									console.log(data);
+// 									res.render('signup', {message: 'Problem signing up, please try again'});
+// 								} else {
+// 									console.log("signup successful ", data);
+// 									passport.authenticate('local')(req, res, function() {
+// 										res.redirect('/dashboard');
+// 									});
+// 								}
+// 							});
 
-						});
-					});				
-				} else {
-					res.render('signup', {message: 'Email already in use'});
-				}
-			}
-		});
-	}
-});
+// 						});
+// 					});				
+// 				} else {
+// 					res.render('signup', {message: 'Email already in use'});
+// 				}
+// 			}
+// 		});
+// 	}
+// });
 
 router.get('/dashboard', function(req, res) {
 	if (req.user) { 
