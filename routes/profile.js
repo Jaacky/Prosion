@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User.js');
-var Analytics = require('../models/Analytics.js');
+// var Analytics = require('../models/Analytics.js');
 var multer = require('multer');
 var upload = multer({dest: './public/images/uploads'});
 var fs = require('fs');
@@ -63,10 +63,10 @@ router.post('/edit', upload.single('image'), function(req, res, next) {
 
 router.get('/:userId', function(req, res, next) {
 	if (req.user) {
-		console.log(req.path);
-		Analytics.update({page: req.path}, {page: req.path, $inc: { viewCount: 1}}, { upsert: true }, function(err, page) {
-			console.log(page);
-		});
+		// console.log(req.path);
+		// Analytics.update({page: req.path}, {page: req.path, $inc: { viewCount: 1}}, { upsert: true }, function(err, page) {
+		// 	console.log(page);
+		// });
 		User.findOne({ _id : req.params.userId }, function(err, user) {
 			if (err) console.log(err);
 			if (!user) {
