@@ -36,28 +36,28 @@ block content
 				.row
 					.col-md-offset-9.col-md-3
 						button#updateProfile(onclick='submitForm("updateProfile")') Update
-		.row.password
-			form.changePassword(name='changePassword' id='changePassword' action='/profile/edit' method='post')
-				.col-md-offset-3.col-md-6
-					.row
-						.col-md-3
-							h4 Old Password:
-						.col-md-9
-							input(type='password' id='oldPassword' name='oldPassword' placeholder='Old Password')
-					.row
-						.col-md-3
-							h4 New Password:
-						.col-md-9
-							input(type='password' id='newPassword' name='newPassword' placeholder='New Password')
-					.row
-						.col-md-3
-							h4 Confirm New Password:
-						.col-md-9
-							input(type='password' id='confirmPassword' name='confirmPassword' placeholder='Confirm New Password')
-				.col-md-3
-					input(type='hidden' class='_id' name='_id')
-					input(type='hidden' id='passwordFlag' name='passwordFlag' value='true')
-					button#changePassword(onclick='submitForm("changePassword")') Change Password
+		//- .row.password
+		//- 	form.changePassword(name='changePassword' id='changePassword' action='/profile/edit' method='post')
+		//- 		.col-md-offset-3.col-md-6
+		//- 			.row
+		//- 				.col-md-3
+		//- 					h4 Old Password:
+		//- 				.col-md-9
+		//- 					input(type='password' id='oldPassword' name='oldPassword' placeholder='Old Password')
+		//- 			.row
+		//- 				.col-md-3
+		//- 					h4 New Password:
+		//- 				.col-md-9
+		//- 					input(type='password' id='newPassword' name='newPassword' placeholder='New Password')
+		//- 			.row
+		//- 				.col-md-3
+		//- 					h4 Confirm New Password:
+		//- 				.col-md-9
+		//- 					input(type='password' id='confirmPassword' name='confirmPassword' placeholder='Confirm New Password')
+		//- 		.col-md-3
+		//- 			input(type='hidden' class='_id' name='_id')
+		//- 			input(type='hidden' id='passwordFlag' name='passwordFlag' value='true')
+		//- 			button#changePassword(onclick='submitForm("changePassword")') Change Password
 		//- !{user}
 
 	script(type='text/javascript').

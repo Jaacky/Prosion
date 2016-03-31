@@ -43,21 +43,22 @@ router.post('/edit', upload.single('image'), function(req, res, next) {
 					res.render('edit', {user: JSON.stringify(user), message: 'Updated your profile!'});
 				}
 			});
-		} else {
-			if (req.body.newPassword != req.body.confirmPassword) {
-				res.render('edit', {user: JSON.stringify(user), message: 'Passwords do not match.'});
-			} else {
-				user.password = req.body.newPassword;
-				user.save(function(err, user) {
-					if (err) {
-						console.log(err);
-						res.render('edit', {user: JSON.stringify(user), message: 'Problem updating your profile, please try again.'});
-					} else {
-						res.render('edit', {user: JSON.stringify(user), message: 'Updated your password!'});
-					}
-				});
-			}
-		}
+		} 
+		// else {
+		// 	if (req.body.newPassword != req.body.confirmPassword) {
+		// 		res.render('edit', {user: JSON.stringify(user), message: 'Passwords do not match.'});
+		// 	} else {
+		// 		user.password = req.body.newPassword;
+		// 		user.save(function(err, user) {
+		// 			if (err) {
+		// 				console.log(err);
+		// 				res.render('edit', {user: JSON.stringify(user), message: 'Problem updating your profile, please try again.'});
+		// 			} else {
+		// 				res.render('edit', {user: JSON.stringify(user), message: 'Updated your password!'});
+		// 			}
+		// 		});
+		// 	}
+		// }
 	});
 });
 
