@@ -39,3 +39,5 @@ data
 # Config and env files
 config.js
 env.js
+
+public/images/uploads
