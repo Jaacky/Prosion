@@ -1,44 +1,44 @@
-extends layout
+//- extends layout
 
-block content
-	.container-fluid.main-container.profile-container
-		h1 Profile
-		h2 Welcome 
-			span#admin-status
-			span#display-name Display name
-		a#userBehaviours(href='/analytics') User behaviours
-		table.table-striped.table-hover.table-bordered#allUsers
-			colgroup
-				col(width='50%')
-				col(width='50%')
-			tr.no-hover
-				th Users' E-mails
-				th Users' Display Names
+//- block content
+//- 	.container-fluid.main-container.profile-container
+//- 		h1 Profile
+//- 		h2 Welcome 
+//- 			span#admin-status
+//- 			span#display-name Display name
+//- 		a#userBehaviours(href='/analytics') User behaviours
+//- 		table.table-striped.table-hover.table-bordered#allUsers
+//- 			colgroup
+//- 				col(width='50%')
+//- 				col(width='50%')
+//- 			tr.no-hover
+//- 				th Users' E-mails
+//- 				th Users' Display Names
 
-	script(type='text/javascript').
-		currentUser = !{user}
-		users = !{users}
-		userLoggedIn(currentUser);
-		$('#display-name').html(currentUser.email);
-		var admin;
-		if (currentUser.admin) {
-			$('#userBehaviours').css('display', 'block');
-			if (currentUser.superAdmin) {
-				admin = 'Super Administrator ';
-			} else {
-				admin = 'Administrator ';
-			}
-		}
+//- 	script(type='text/javascript').
+//- 		currentUser = !{userJSON}
+//- 		users = !{users}
+//- 		userLoggedIn(currentUser);
+//- 		$('#display-name').html(currentUser.email);
+//- 		var admin;
+//- 		if (currentUser.admin) {
+//- 			$('#userBehaviours').css('display', 'block');
+//- 			if (currentUser.superAdmin) {
+//- 				admin = 'Super Administrator ';
+//- 			} else {
+//- 				admin = 'Administrator ';
+//- 			}
+//- 		}
 
-		$('#admin-status').html(admin);
+//- 		$('#admin-status').html(admin);
 
-		for (var i=0; i<users.length; i++) {
-			if (users[i]._id != currentUser._id) $('#allUsers').append(formatUserRow(users[i]));
-		}
+//- 		for (var i=0; i<users.length; i++) {
+//- 			if (users[i]._id != currentUser._id) $('#allUsers').append(formatUserRow(users[i]));
+//- 		}
 
-		$(document).ready(function() {
-			$('.userRow').on('click', function() {
-				console.log($(this).attr('id'));
-				location.pathname = "profile/" + $(this).attr('id');
-			});
-		});
+//- 		$(document).ready(function() {
+//- 			$('.userRow').on('click', function() {
+//- 				console.log($(this).attr('id'));
+//- 				location.pathname = "profile/" + $(this).attr('id');
+//- 			});
+//- 		});
