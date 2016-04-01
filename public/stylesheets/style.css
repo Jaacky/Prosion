@@ -385,3 +385,29 @@ PEOPLE
 	border-radius: 50px;
 
 }
+
+/*MAIN BACKGROUND COLOR: #383840;
+MAIN TEXT COLOR: #E1E3E6;
+MAIN HOVER COLOR: #afafb2;
+SELECTED HOVER : #C0D890;
+*/
+.userStats {
+	width: 50%;
+	max-width: 125px;
+	display: inline-block;
+	text-align: center;
+	color: #E1E3E6;
+	border: 1px solid white;
+}
+
+.userStats:hover {
+	cursor: pointer;
+}
+
+.userStats:hover h2 {
+	color: #C0D890;
+}
+
+.userStats:hover .stats {
+	text-decoration: underline;
+}

@@ -1,0 +1,49 @@
+extends layout
+
+block content
+	.container-fluid.main-container.userProfile-container
+		.row
+			.col-md-12
+				h1
+					if otherUser.name
+						span#name= otherUser.name
+					else 
+						span#name= otherUser.email
+					| 's Profile
+
+				if user.following.indexOf(otherUser) >= 0
+					button.btn#btn-unfollow Unfollow
+				else
+					button.btn#btn-follow Follow
+
+		.row
+			.col-md-3
+				.image
+					<img class="profileImage" src="../#{otherUser.image}">
+				.userStats
+					h2.stats#followers= otherUser.followers.length
+					h5 followers
+				.userStats
+					h2.stats#following= otherUser.following.length
+					h5 following
+
+	script.
+		var loggedInUser = !{userJSON};
+		var otherUser = !{otherUserJSON};
+		console.log(loggedInUser);
+		console.log(otherUser);
+		console.log(loggedInUser.following.indexOf(otherUser));
+
+		$("#btn-follow").on("click", function() {
+			post("/profile/follow", { "_id": otherUser._id});
+		});
+
+		$(".userStats").on("click", function() {
+			var stats = $($(this).children(".stats")[0]).attr("id");
+			if (stats === "following") {
+				console.log("following");
+			} else {
+				console.log("followers");
+			}
+		});
+
