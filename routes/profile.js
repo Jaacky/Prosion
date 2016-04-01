@@ -64,22 +64,55 @@ router.post('/edit', upload.single('image'), function(req, res, next) {
 
 router.get('/:userId', function(req, res, next) {
 	if (req.user) {
-		// console.log(req.path);
-		// Analytics.update({page: req.path}, {page: req.path, $inc: { viewCount: 1}}, { upsert: true }, function(err, page) {
-		// 	console.log(page);
-		// });
 		User.findOne({ _id : req.params.userId }, function(err, user) {
 			if (err) console.log(err);
 			if (!user) {
 				console.log("Profile doesn't exist");
 				res.redirect('/dashboard');
 			}
-			res.render('profile', { user: JSON.stringify(req.user), otherUser: JSON.stringify(user) });
+			res.render('userProfile', { user: req.user, userJSON: JSON.stringify(req.user), otherUser: user, otherUserJSON: JSON.stringify(user) });
 		});
 	} else {
 		res.redirect('/');
 	}
-  	// res.send(req.params.userId);
+});
+
+router.get('/following/:userId', function(req, res, next) {
+
+});
+
+router.get('/followers/:userId', function(req, res, next) {
+
+});
+
+router.post('/follow', function(req, res) {
+	if (req.user) {
+		User.findOne({ _id: req.user._id }, function(err, followingUser) {
+			if (err) console.log("User following cannot be found", err);
+			// Eventually need to check if already followed just for error checkings sake
+			// Also need to check if user is themself, shouldn't happen
+			User.findOne({ _id: req.body._id }, function(err, followedUser) {
+				if (err) console.log("User being followed cannot be found", err);
+
+				followingUser.following.push(req.body._id);
+				followingUser.save(function(err, user) {
+					if (err) {
+						console.log("Error saving user after following.");
+					}
+					console.log(user);
+					followedUser.followers.push(req.user._id);
+					followedUser.save(function(err, user) {
+						if (err) console.log("Error saving user after being followed");
+						res.redirect('/profile/' + req.body._id);
+					});
+					
+				});
+			});
+
+		});
+	} else {
+		// Redirect to sign up page to follow
+	}
 });
 
 router.post('/delete', function(req, res, next) {
