@@ -143,7 +143,7 @@ router.get('/dashboard', function(req, res) {
 					owners : user._id
 				}, function(err, fusions) {
 					console.log(fusions);
-					res.render('dashboard', { user:JSON.stringify(user), graphs: JSON.stringify(graphs), fusions: JSON.stringify(fusions) });
+					res.render('dashboard', { user: user, userJSON:JSON.stringify(user), graphs: JSON.stringify(graphs), fusions: JSON.stringify(fusions) });
 				});
 			});
 		});

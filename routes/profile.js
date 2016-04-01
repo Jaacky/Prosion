@@ -11,7 +11,7 @@ var fs = require('fs');
 router.get('/', function(req, res) {
 	console.log("at profile");
 	if (req.user) { 
-		res.render('profile', {user: JSON.stringify(req.user), otherUser: false});
+		res.render('profile', { user: req.user, userJSON: JSON.stringify(req.user), otherUserJSON: false});
 	}
 	else {
 		res.redirect('/');
@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
 
 router.get('/edit', function(req, res) {
 	if (req.user) {
-		res.render('edit', {user: JSON.stringify(req.user)});
+		res.render('edit', { user: req.user, userJSON: JSON.stringify(req.user)});
 	} else {
 		res.redirect('/');
 	}
@@ -36,11 +36,12 @@ router.post('/edit', upload.single('image'), function(req, res, next) {
 				user.image = req.file.path.substring(7);
 			}
 			user.save(function(err, user) {
+				/** NEED TO TAKE A LOOK AT THIS, NO NEED TO RENDER IN POST, SHOULD BE A REDIRECT NO? **/
 				if (err) {
 					console.log(err);
-					res.render('edit', {user: JSON.stringify(user), message: 'Problem updating your profile, please try again.'});
+					res.render('edit', { user: user, userJSON: JSON.stringify(user), message: 'Problem updating your profile, please try again.'});
 				} else {
-					res.render('edit', {user: JSON.stringify(user), message: 'Updated your profile!'});
+					res.render('edit', { user: user, userJSON: JSON.stringify(user), message: 'Updated your profile!'});
 				}
 			});
 		} 
@@ -78,7 +79,7 @@ router.get('/:userId', function(req, res, next) {
 });
 
 router.get('/following/:userId', function(req, res, next) {
-
+	res.render("following");
 });
 
 router.get('/followers/:userId', function(req, res, next) {
