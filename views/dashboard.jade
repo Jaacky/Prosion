@@ -3,7 +3,7 @@ extends layout
 block content
 	.container-fluid.main-container.dashboard-container
 		.row.dashboard-navbar
-			.dashboard-nav.col-sm-3#dbPersonalGraphs
+			.dashboard-nav.col-sm-3.active#dbPersonalGraphs
 				span.glyphicon.glyphicon-stats
 				h3 Personal graphs
 			.dashboard-nav.col-sm-3#dbFusedGraphs
@@ -17,7 +17,7 @@ block content
 				h3 Fuse graphs
 
 		.row#dashboard
-			.dashboardContainer#dbPersonalGraphsContainer
+			.dashboardContainer.active#dbPersonalGraphsContainer
 
 			.dashboardContainer#dbFusedGraphsContainer
 
