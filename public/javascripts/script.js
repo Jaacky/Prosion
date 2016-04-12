@@ -74,6 +74,9 @@ function userLoggedOut() {
 	}
 }
 
+/*
+UNUSED NOW
+*/
 function formatGraphButton(graph) {
 	return '<div class="col-sm-2 dashboard-graph">'
 			+ '<a href="/graph/' + graph._id + '">'
@@ -84,6 +87,9 @@ function formatGraphButton(graph) {
 			+ '</div>';
 }
 
+/*
+UNUSED NOW
+*/
 function appendGraphButtons(container, graphs) {
 	for (var i=0; i<graphs.length; i++) {
 		$(container).append(formatGraphButton(graphs[i]));

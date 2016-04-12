@@ -17,9 +17,25 @@ block content
 				h3 Fuse graphs
 
 		.row#dashboard
+			//- '<div class="col-sm-2 dashboard-graph">'
+			//- + '<a href="/graph/' + graph._id + '">'
+			//- 	+ '<button class="btn btn-default btn-graph">'
+			//- 		+ '<p>' + graph.name + '</p>'
+			//- 	+ '</button>'
+			//- + '</a>';
+			//- + '</div>';
 			.dashboardContainer.active#dbPersonalGraphsContainer
-
+				each graph in graphs
+					.col-sm-2.dashboard-graph
+						a(href="/graph/#{graph._id}")
+							button.btn.btn-default.btn-graph
+								p= graph.name
 			.dashboardContainer#dbFusedGraphsContainer
+				each fusion in fusions
+					.col-sm-2.dashboard-graph
+						a(href="/graph/#{fusion._id}")
+							button.btn.btn-default.btn-graph
+								p= fusion.name
 
 			.col-sm-6.dashboardContainer#dbNewContainer
 				form#createGraphForm(action='/createGraph', method='post')
@@ -48,10 +64,10 @@ block content
 
 	script(type='text/javascript').
 		//- currentUser = !{userJSON}
-		graphs = !{graphs}
-		var fusions = !{fusions}
-		appendGraphButtons('#dbPersonalGraphsContainer', graphs);
-		appendGraphButtons('#dbFusedGraphsContainer', fusions);
+		//- var graphs = !{graphsJSON}
+		//- var fusions = !{fusionsJSON}
+		//- appendGraphButtons('#dbPersonalGraphsContainer', graphs);
+		//- appendGraphButtons('#dbFusedGraphsContainer', fusions);
 
 	script(src="../javascripts/dashboard.js")
 	script(src='../javascripts/fuse.js')
