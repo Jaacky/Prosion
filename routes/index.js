@@ -191,6 +191,23 @@ router.post('/createGraph', function(req, res) {
 	});		
 });
 
+router.get('/following/:userId', function(req, res, next) {
+	User.findOne({ _id: req.params.userId }, function(err, otherUser) {
+		if (err) console.log("Error finding user when looking for their following.");
+		if (!otherUser) {
+			console.log("User doesn't exist");
+			res.redirect('/dashboard');
+		}
+
+		res.render("following", { user: req.user, userJSON: JSON.stringify(req.user), otherUser: otherUser, otherUserJSON: JSON.stringify(otherUser) });
+	});
+	
+});
+
+router.get('/followers/:userId', function(req, res, next) {
+
+});
+
 router.get('/analytics', function(req, res) {
 	if (req.user) {
 		if (req.user.admin) {

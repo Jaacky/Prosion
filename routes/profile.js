@@ -6,8 +6,17 @@ var multer = require('multer');
 var upload = multer({dest: './public/images/uploads'});
 var fs = require('fs');
 
-/* GET users listing. */
+/* Check if user is logged in */
+router.use(function(req, res, next) {
+	if (!req.user) {
+		res.redirect('/login');
+	} else {
+		res.locals.userJSON = JSON.stringify(req.user);
+		next();
+	}
+});
 
+/* GET users listing. */
 router.get('/', function(req, res) {
 	console.log("at profile");
 	if (req.user) { 
@@ -76,14 +85,6 @@ router.get('/:userId', function(req, res, next) {
 	} else {
 		res.redirect('/');
 	}
-});
-
-router.get('/following/:userId', function(req, res, next) {
-	res.render("following");
-});
-
-router.get('/followers/:userId', function(req, res, next) {
-
 });
 
 router.post('/follow', function(req, res) {
