@@ -386,6 +386,12 @@ PEOPLE
 
 }
 
+.tableFace {
+	max-height: 50px;
+	max-width: 50px;
+	border-radius: 25px;
+}
+
 /*MAIN BACKGROUND COLOR: #383840;
 MAIN TEXT COLOR: #E1E3E6;
 MAIN HOVER COLOR: #afafb2;
@@ -398,10 +404,12 @@ SELECTED HOVER : #C0D890;
 	text-align: center;
 	color: #E1E3E6;
 	border: 1px solid white;
+
 }
 
 .userStats:hover {
 	cursor: pointer;
+	text-decoration: none;
 }
 
 .userStats:hover h2 {

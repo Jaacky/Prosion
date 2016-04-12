@@ -1,3 +1,14 @@
 extends layout
 
 block content
+	.container.main-container
+		h1= otherUser.name
+		table.table.table-striped
+			colgroup
+				col(width="20%")
+			each user in otherUser.following
+				tr
+					td 
+						img.tableFace(src="../#{user.image}")
+					td= user.name ? user.name : user.email
+	script.

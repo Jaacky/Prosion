@@ -192,14 +192,20 @@ router.post('/createGraph', function(req, res) {
 });
 
 router.get('/following/:userId', function(req, res, next) {
-	User.findOne({ _id: req.params.userId }, function(err, otherUser) {
+	User.findOne({ _id: req.params.userId })
+		.populate('following followers')
+		.exec(function(err, otherUser) {
 		if (err) console.log("Error finding user when looking for their following.");
 		if (!otherUser) {
 			console.log("User doesn't exist");
 			res.redirect('/dashboard');
 		}
-
-		res.render("following", { user: req.user, userJSON: JSON.stringify(req.user), otherUser: otherUser, otherUserJSON: JSON.stringify(otherUser) });
+		if (req.user) {
+			res.render("following", { user: req.user, userJSON: JSON.stringify(req.user), otherUser: otherUser, otherUserJSON: JSON.stringify(otherUser) });
+		} else {
+			res.redirect('/login');
+		}
+		
 	});
 	
 });
