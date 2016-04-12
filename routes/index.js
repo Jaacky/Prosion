@@ -214,19 +214,4 @@ router.get('/followers/:userId', function(req, res, next) {
 
 });
 
-router.get('/analytics', function(req, res) {
-	if (req.user) {
-		if (req.user.admin) {
-			Analytics.find({}, function(err, data) {
-				//res.send(data);
-				res.render('analytics', {user: JSON.stringify(req.user), data: JSON.stringify(data)});
-			});
-		} else {
-			res.redirect('/');
-		}
-	} else {
-		res.redirect('/');
-	}
-});
-
 module.exports = router;

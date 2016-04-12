@@ -123,21 +123,4 @@ router.post('/delete', function(req, res, next) {
 	});
 });
 
-router.post('/toggleAdmin', function(req, res, next) {
-	User.findOne({ _id: req.body._id }, function(err, user) {
-		if (err) console.log(err);
-		if (!user) {
-			res.redirect('/dashboard');
-		}
-		var admin = user.admin;
-		user.admin = !admin;
-		user.save(function(err, user) {
-			if (err) res.redirect('/profile/' + req.body._id);
-			else {
-				res.redirect('/profile/' + req.body._id);
-			}
-		});
-	});
-});
-
 module.exports = router;

@@ -14,6 +14,25 @@ $('.dashboard-nav').on('click', function() {
 	DASHBOARD_NAV[id]();
 });
 
+function displayNew () {
+	$('.dashboardContainer').removeClass("active");
+	$('#dbNewContainer').addClass("active");
+}
+
+function displayFuse() {
+	$('.dashboardContainer').removeClass("active");
+	$('#fuseForm').addClass("active");
+}
+
+function displayPersonalGraphs() {
+	$('.dashboardContainer').removeClass("active");
+	$('#dbPersonalGraphsContainer').addClass("active");
+}
+
+function displayFusedGraphs() {
+	$('.dashboardContainer').removeClass("active");
+	$('#dbFusedGraphsContainer').addClass("active");
+}
 /*
 * The structure that displayNew creates
 * .col-sm-6
@@ -203,23 +222,3 @@ function displayFuse() {
 // 	c4button.innerHTML = "Fuse em!";
 // 	c4.appendChild(c4button);
 // }
-
-function displayNew () {
-	$('.dashboardContainer').removeClass("active");
-	$('#dbNewContainer').addClass("active");
-}
-
-function displayFuse() {
-	$('.dashboardContainer').removeClass("active");
-	$('#fuseForm').addClass("active");
-}
-
-function displayPersonalGraphs() {
-	$('.dashboardContainer').removeClass("active");
-	$('#dbPersonalGraphsContainer').addClass("active");
-}
-
-function displayFusedGraphs() {
-	$('.dashboardContainer').removeClass("active");
-	$('#dbFusedGraphsContainer').addClass("active");
-}

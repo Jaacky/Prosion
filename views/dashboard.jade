@@ -17,13 +17,6 @@ block content
 				h3 Fuse graphs
 
 		.row#dashboard
-			//- '<div class="col-sm-2 dashboard-graph">'
-			//- + '<a href="/graph/' + graph._id + '">'
-			//- 	+ '<button class="btn btn-default btn-graph">'
-			//- 		+ '<p>' + graph.name + '</p>'
-			//- 	+ '</button>'
-			//- + '</a>';
-			//- + '</div>';
 			.dashboardContainer.active#dbPersonalGraphsContainer
 				each graph in graphs
 					.col-sm-2.dashboard-graph
@@ -60,14 +53,6 @@ block content
 					button.btn.btn-default.btn-add-graph + Add another graph
 				.col-sm-12
 					button.btn.btn-default#fuseGraphs(type='submit') Fuse plz
-
-
-	script(type='text/javascript').
-		//- currentUser = !{userJSON}
-		//- var graphs = !{graphsJSON}
-		//- var fusions = !{fusionsJSON}
-		//- appendGraphButtons('#dbPersonalGraphsContainer', graphs);
-		//- appendGraphButtons('#dbFusedGraphsContainer', fusions);
 
 	script(src="../javascripts/dashboard.js")
 	script(src='../javascripts/fuse.js')
