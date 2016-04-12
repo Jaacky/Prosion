@@ -19,11 +19,11 @@ block content
 		.row
 			.col-md-3
 				.image
-					<img class="profileImage" src="../#{otherUser.image}">
-				.userStats
+					img.profileImage(src="../#{otherUser.image}")
+				a.userStats(href="followers/#{otherUser._id}")
 					h2.stats#followers= otherUser.followers.length
 					h5 followers
-				.userStats
+				a.userStats(href="following/#{otherUser._id}")
 					h2.stats#following= otherUser.following.length
 					h5 following
 
