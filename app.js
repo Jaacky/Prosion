@@ -22,14 +22,14 @@ mongoose.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + co
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function(callback) {
-  console.log("~~~~~~~~~~~~~~~~~~~~~");
-  console.log("Displaying all users in db");
-  User.find({}, function(err, users) {
-    console.log("users ", users);
-    console.log("~~~~~~~~~~~~~~~~~~~~~");
-  });
-}); 
+// db.once('open', function(callback) {
+//   console.log("~~~~~~~~~~~~~~~~~~~~~");
+//   console.log("Displaying all users in db");
+//   User.find({}, function(err, users) {
+//     console.log("users ", users);
+//     console.log("~~~~~~~~~~~~~~~~~~~~~");
+//   });
+// }); 
 var routes = require('./routes/index');
 var profile = require('./routes/profile');
 var graph = require('./routes/graph');
@@ -98,6 +98,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
