@@ -40,4 +40,8 @@ data
 config.js
 env.js
 
+# keys and certificates
+*.key
+*.crt
+
 public/images/uploads
