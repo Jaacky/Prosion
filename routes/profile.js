@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../models/User.js');
 // var Analytics = require('../models/Analytics.js');
 var multer = require('multer');
-var upload = multer({dest: './public/images/uploads'});
+var upload = multer({dest: './public/images/uploads/'});
 var fs = require('fs');
 
 /* Check if user is logged in */
