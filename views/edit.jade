@@ -61,7 +61,7 @@ block content
 		//- !{user}
 
 	script(type='text/javascript').
-		currentUser = !{user};
+		currentUser = !{userJSON};
 		userLoggedIn(currentUser);
 		$('._id').val(currentUser._id)
 		$('#email').html(currentUser.email)

@@ -32,19 +32,7 @@ var delay = (function(){
   };
 })();
 
-function formatUserRow(user) {
-	var email = user.email;
-	var name;
-	if (user.name) {
-		name = user.name;
-	} else {
-		name = email;
-	}
-	console.log(email);
-	console.log(name);
 
-	return "<tr class='userRow' id='" + user._id + "'><td>" + email + "</td><td>" + name + "</td></tr>";
-}
 
 function submitForm(id) {
 	$('#' + id).submit();
@@ -74,22 +62,6 @@ function userLoggedOut() {
 	}
 }
 
-function formatGraphButton(graph) {
-	return '<div class="col-sm-2 dashboard-graph">'
-			+ '<a href="/graph/' + graph._id + '">'
-				+ '<button class="btn btn-default btn-graph">'
-					+ '<p>' + graph.name + '</p>'
-				+ '</button>'
-			+ '</a>';
-			+ '</div>';
-}
-
-function appendGraphButtons(container, graphs) {
-	for (var i=0; i<graphs.length; i++) {
-		$(container).append(formatGraphButton(graphs[i]));
-	}
-}
-
 function getDatalistOption(datalistID, value) {
 	var option = $(datalistID).find("option[value='" + value + "']");
 	var id = option.attr('id');
@@ -111,6 +83,26 @@ function populateDropdown(input, datalist, url) {
 	});
 }
 
+/*
+UNUSED
+*/
+function formatUserRow(user) {
+	var email = user.email;
+	var name;
+	if (user.name) {
+		name = user.name;
+	} else {
+		name = email;
+	}
+	console.log(email);
+	console.log(name);
+
+	return "<tr class='userRow' id='" + user._id + "'><td>" + email + "</td><td>" + name + "</td></tr>";
+}
+
+/*
+UNUSED
+*/
 function populateDropdownSearch(input, datalist) {
 	var dList = $(datalist);
 	dList.empty();
@@ -124,6 +116,28 @@ function populateDropdownSearch(input, datalist) {
 			dList.append(option);
 		}
 	});
+}
+
+/*
+UNUSED NOW
+*/
+function formatGraphButton(graph) {
+	return '<div class="col-sm-2 dashboard-graph">'
+			+ '<a href="/graph/' + graph._id + '">'
+				+ '<button class="btn btn-default btn-graph">'
+					+ '<p>' + graph.name + '</p>'
+				+ '</button>'
+			+ '</a>';
+			+ '</div>';
+}
+
+/*
+UNUSED NOW
+*/
+function appendGraphButtons(container, graphs) {
+	for (var i=0; i<graphs.length; i++) {
+		$(container).append(formatGraphButton(graphs[i]));
+	}
 }
 
 

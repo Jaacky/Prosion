@@ -207,6 +207,10 @@ DASHBOARD
 	overflow: hidden;
 }
 
+.dashboard-navbar {
+	margin-bottom: 25px;
+}
+
 .dashboard-nav {
 	border: 1px solid #E1E3E6;
 	text-align: center;
@@ -219,8 +223,28 @@ DASHBOARD
 	cursor: pointer;
 }
 
+.dashboard-nav.active {
+	border-bottom: 8px solid #E1E3E6;
+}
+
 .dashboard-nav .glyphicon {
 	font-size: 2.25em;
+}
+
+.dashboard-nav h3 {
+	margin-top: 10px;
+}
+
+#dashboard {
+	
+}
+
+.dashboardContainer {
+	display: none;
+}
+
+.dashboardContainer.active {
+	display: block;
 }
 /******************
 GRAPH
@@ -360,4 +384,38 @@ PEOPLE
 	width: 50px;
 	border-radius: 50px;
 
+}
+
+.tableFace {
+	max-height: 50px;
+	max-width: 50px;
+	border-radius: 25px;
+}
+
+/*MAIN BACKGROUND COLOR: #383840;
+MAIN TEXT COLOR: #E1E3E6;
+MAIN HOVER COLOR: #afafb2;
+SELECTED HOVER : #C0D890;
+*/
+.userStats {
+	width: 50%;
+	max-width: 125px;
+	display: inline-block;
+	text-align: center;
+	color: #E1E3E6;
+	border: 1px solid white;
+
+}
+
+.userStats:hover {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.userStats:hover h2 {
+	color: #C0D890;
+}
+
+.userStats:hover .stats {
+	text-decoration: underline;
 }

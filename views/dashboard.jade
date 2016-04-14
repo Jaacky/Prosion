@@ -3,49 +3,59 @@ extends layout
 block content
 	.container-fluid.main-container.dashboard-container
 		.row.dashboard-navbar
+			.dashboard-nav.col-sm-3.active#dbPersonalGraphs
+				span.glyphicon.glyphicon-stats
+				h3 Personal graphs
+			.dashboard-nav.col-sm-3#dbFusedGraphs
+				span.glyphicon.glyphicon-random
+				h3 Fused graphs
 			.dashboard-nav.col-sm-3#dbNew
 				span.glyphicon.glyphicon-plus
 				h3 New graph
 			.dashboard-nav.col-sm-3#dbFuse
 				span.glyphicon.glyphicon-fire
 				h3 Fuse graphs
-			.dashboard-nav.col-sm-3#dbPersonalGraphs
-				span.glyphicon.glyphicon-stats
-				h3 Personal graphs
-			.dashboard-nav.col-sm-3#dbFusedGraphs
-				span.glyphicon.glyphicon-random
-				h3 Fused graphs
-		h1 Dashboard
+
 		.row#dashboard
-		.row#dashboard-menu
-			//- .col-sm-12
-			//- 	h2 New Graph:
-			.col-sm-6
+			.dashboardContainer.active#dbPersonalGraphsContainer
+				each graph in graphs
+					.col-sm-2.dashboard-graph
+						a(href="/graph/#{graph._id}")
+							button.btn.btn-default.btn-graph
+								p= graph.name
+			.dashboardContainer#dbFusedGraphsContainer
+				each fusion in fusions
+					.col-sm-2.dashboard-graph
+						a(href="/graph/#{fusion._id}")
+							button.btn.btn-default.btn-graph
+								p= fusion.name
+
+			.col-sm-6.dashboardContainer#dbNewContainer
 				form#createGraphForm(action='/createGraph', method='post')
 					.input-group
 						input.form-control(type='text', id='graphName', name='graphName', placeholder='Graph Name')
 						span.input-group-btn
 							button.btn.btn-default#createGraph(type='submit') Create new graph
-			.col-sm-6
-				a(href='/graph/fuse')
-					button.btn.btn-default Fuse
-		.row#personal-graphs
-			.col-sm-12
-				h2 Personal Graphs
 
-		.row#group-graphs
-			.col-sm-12
-				h2 Group Graphs
-				div#my_chart
+			.dashboardContainer#fuseForm
+				.col-sm-12
+					input.form-control(name='fusionName', id = 'fusionName' placeholder='Fusion Name')
+					input(name='numGraphs' id='numGraphs' value='2' hidden)
+				.col-sm-6#own-graphs
+					h2 Your graphs
+					input.form-control.graph-input(name='graph-id1' placeholder='Graph 1' list='datalist-1' onkeyup='delay(populateDropdownOwn(this, "#datalist-1"), 500)')
+					datalist#datalist-1
+					button.btn.btn-default.btn-add-graph + Add another graph
+				.col-sm-6#other-graphs
+					h2 Your friends' graphs
+					input.form-control.graph-input(name='graph-id2' placeholder='Graph 2' list='datalist-2' onkeyup='delay(populateDropdownOwn(this, "#datalist-2"), 500)')
+					datalist#datalist-2
+					button.btn.btn-default.btn-add-graph + Add another graph
+				.col-sm-12
+					button.btn.btn-default#fuseGraphs(type='submit') Fuse plz
 
 	script(src="../javascripts/dashboard.js")
-	script(type='text/javascript').
-		currentUser = !{user}
-		graphs = !{graphs}
-		var fusions = !{fusions}
-		console.log(fusions);
-		appendGraphButtons('#personal-graphs', graphs);
-		appendGraphButtons('#group-graphs', fusions);
+	script(src='../javascripts/fuse.js')
 
 
 

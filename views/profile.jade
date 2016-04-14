@@ -43,8 +43,8 @@ block content
 							button#toggleAdminButton(onclick='submitForm("toggleAdmin"') Make Admin
 
 	script(type='text/javascript').
-		currentUser = !{user};
-		otherUser = !{otherUser};
+		currentUser = !{userJSON};
+		otherUser = !{otherUserJSON};
 		userLoggedIn(currentUser);
 		if (otherUser) {
 

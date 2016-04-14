@@ -143,7 +143,7 @@ router.get('/dashboard', function(req, res) {
 					owners : user._id
 				}, function(err, fusions) {
 					console.log(fusions);
-					res.render('dashboard', { user:JSON.stringify(user), graphs: JSON.stringify(graphs), fusions: JSON.stringify(fusions) });
+					res.render('dashboard', { user: user, userJSON:JSON.stringify(user), graphs: graphs, fusions: fusions, graphsJSON: JSON.stringify(graphs), fusionsJSON: JSON.stringify(fusions) });
 				});
 			});
 		});
@@ -191,19 +191,27 @@ router.post('/createGraph', function(req, res) {
 	});		
 });
 
-router.get('/analytics', function(req, res) {
-	if (req.user) {
-		if (req.user.admin) {
-			Analytics.find({}, function(err, data) {
-				//res.send(data);
-				res.render('analytics', {user: JSON.stringify(req.user), data: JSON.stringify(data)});
-			});
-		} else {
-			res.redirect('/');
+router.get('/following/:userId', function(req, res, next) {
+	User.findOne({ _id: req.params.userId })
+		.populate('following followers')
+		.exec(function(err, otherUser) {
+		if (err) console.log("Error finding user when looking for their following.");
+		if (!otherUser) {
+			console.log("User doesn't exist");
+			res.redirect('/dashboard');
 		}
-	} else {
-		res.redirect('/');
-	}
+		if (req.user) {
+			res.render("following", { user: req.user, userJSON: JSON.stringify(req.user), otherUser: otherUser, otherUserJSON: JSON.stringify(otherUser) });
+		} else {
+			res.redirect('/login');
+		}
+		
+	});
+	
+});
+
+router.get('/followers/:userId', function(req, res, next) {
+
 });
 
 module.exports = router;
