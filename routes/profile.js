@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../models/User.js');
 // var Analytics = require('../models/Analytics.js');
 var multer = require('multer');
-var upload = multer({dest: './public/images/uploads/'});
+// var upload = multer({dest: './public/images/uploads/'});
 var fs = require('fs');
 
 /* Check if user is logged in */
@@ -35,25 +35,67 @@ router.get('/edit', function(req, res) {
 	}
 });
 
-router.post('/edit', upload.single('image'), function(req, res, next) {
+// router.post('/edit', upload.single('image'), function(req, res, next) {
+// 	User.findById(req.body._id, function(err, user) {
+// 		if (err) console.log(err);
+// 		if (req.body.passwordFlag == 'false') {
+// 			user.name = req.body.displayName;
+// 			user.description = req.body.description;
+// 			if (req.file) {
+// 				user.image = req.file.path.substring(7);
+// 			}
+// 			user.save(function(err, user) {
+// 				/** NEED TO TAKE A LOOK AT THIS, NO NEED TO RENDER IN POST, SHOULD BE A REDIRECT NO? **/
+// 				if (err) {
+// 					console.log(err);
+// 					res.render('edit', { user: user, userJSON: JSON.stringify(user), message: 'Problem updating your profile, please try again.'});
+// 				} else {
+// 					res.render('edit', { user: user, userJSON: JSON.stringify(user), message: 'Updated your profile!'});
+// 				}
+// 			});
+// 		} 
+// 		// else {
+// 		// 	if (req.body.newPassword != req.body.confirmPassword) {
+// 		// 		res.render('edit', {user: JSON.stringify(user), message: 'Passwords do not match.'});
+// 		// 	} else {
+// 		// 		user.password = req.body.newPassword;
+// 		// 		user.save(function(err, user) {
+// 		// 			if (err) {
+// 		// 				console.log(err);
+// 		// 				res.render('edit', {user: JSON.stringify(user), message: 'Problem updating your profile, please try again.'});
+// 		// 			} else {
+// 		// 				res.render('edit', {user: JSON.stringify(user), message: 'Updated your password!'});
+// 		// 			}
+// 		// 		});
+// 		// 	}
+// 		// }
+// 	});
+// });
+
+router.post('/edit', function(req, res, next) {
+	console.log(req.body);
 	User.findById(req.body._id, function(err, user) {
 		if (err) console.log(err);
-		if (req.body.passwordFlag == 'false') {
+		if (req.body.displayName) {
 			user.name = req.body.displayName;
+		}
+		if (user.description) {
 			user.description = req.body.description;
-			if (req.file) {
-				user.image = req.file.path.substring(7);
+		}
+		
+		// if (req.file) {
+		// 	user.image = req.file.path.substring(7);
+		// }
+		user.save(function(err, user) {
+			/** NEED TO TAKE A LOOK AT THIS, NO NEED TO RENDER IN POST, SHOULD BE A REDIRECT NO? **/
+			if (err) {
+				console.log(err);
+				// res.render('edit', { user: user, userJSON: JSON.stringify(user), message: 'Problem updating your profile, please try again.'});
+			} else {
+				// res.render('edit', { user: user, userJSON: JSON.stringify(user), message: 'Updated your profile!'});
+				res.redirect('/profile');
 			}
-			user.save(function(err, user) {
-				/** NEED TO TAKE A LOOK AT THIS, NO NEED TO RENDER IN POST, SHOULD BE A REDIRECT NO? **/
-				if (err) {
-					console.log(err);
-					res.render('edit', { user: user, userJSON: JSON.stringify(user), message: 'Problem updating your profile, please try again.'});
-				} else {
-					res.render('edit', { user: user, userJSON: JSON.stringify(user), message: 'Updated your profile!'});
-				}
-			});
-		} 
+		});
 		// else {
 		// 	if (req.body.newPassword != req.body.confirmPassword) {
 		// 		res.render('edit', {user: JSON.stringify(user), message: 'Passwords do not match.'});
@@ -71,6 +113,7 @@ router.post('/edit', upload.single('image'), function(req, res, next) {
 		// }
 	});
 });
+
 
 router.get('/:userId', function(req, res, next) {
 	if (req.user) {
