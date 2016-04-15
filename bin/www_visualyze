@@ -7,17 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('Visualyze:server');
 var http = require('http');
-var https = require('https');
 var fs = require('fs');
 var config = require('../config.js')();
-
-
-var pkey = fs.readFileSync(config.keyName);
-var pcert = fs.readFileSync(config.certificateName);
-var options = {
-  key: pkey,
-  cert: pcert
-};
 
 /**
  * Get port from environment and store in Express.
@@ -30,7 +21,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = https.createServer(options, app);
+var server = http.createServer(app);
 
 
 
