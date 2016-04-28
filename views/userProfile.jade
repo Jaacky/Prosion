@@ -20,10 +20,10 @@ block content
 			.col-md-3
 				.image
 					img.profileImage(src="../#{otherUser.image}")
-				a.userStats(href="followers/#{otherUser._id}")
+				a.userStats(href="/followers/#{otherUser._id}")
 					h2.stats#followers= otherUser.followers.length
 					h5 followers
-				a.userStats(href="following/#{otherUser._id}")
+				a.userStats(href="/following/#{otherUser._id}")
 					h2.stats#following= otherUser.following.length
 					h5 following
 
