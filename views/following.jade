@@ -3,12 +3,16 @@ extends layout
 block content
 	.container.main-container
 		h1= otherUser.name
-		table.table.table-striped
+		table.table.user-table
 			colgroup
 				col(width="20%")
 			each user in otherUser.following
-				tr
+				tr(userId="#{user._id}")
 					td 
 						img.tableFace(src="../#{user.image}")
 					td= user.name ? user.name : user.email
 	script.
+		$(".user-table tbody tr").on("click", function() {
+			console.log($(this).attr("userid"));
+			document.location = "/profile/" + $(this).attr("userid");
+		});

@@ -377,6 +377,17 @@ svg .axis text {
 /******************
 PEOPLE
 ******************/
+.table-striped {
+   background-color: #C0D890;
+}
+
+.user-table {
+	background-color: #E1E3E6;
+}
+
+.user-table>tbody>tr>td{
+	border-color: #383840;
+}
 
 .peopleImage {
 	background-size: cover;
